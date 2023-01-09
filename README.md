@@ -1,0 +1,1 @@
+Dart version commitlint - A tool to lint commit message.
