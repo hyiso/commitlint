@@ -1,0 +1,47 @@
+name: commitlint
+repository: https://github.com/hyiso/commitlint
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+  version:
+    # Generate commit links in package changelogs.
+    linkToCommits: true
+    includeCommitId: true
+    # Only allow versioning to happen on main branch.
+    branch: main
+    # Additionally build a changelog at the root of the workspace.
+    workspaceChangelog: true
+
+packages:
+  - packages/**
+
+scripts:
+
+  analyze:
+    run: dart analyze . --fatal-infos
+    exec:
+      concurrency: 1
+    description: Run `dart analyze` in all packages.
+
+  test:
+    run: dart test --reporter expanded
+    exec:
+      concurrency: 1
+    description: Run Dart tests for a specific package in this project.
+    select-package:
+      flutter: false
+      dir-exists: 
+        - 'test/'
+    # This tells Melos tests to ignore env variables passed to tests from `melos run test`
+    # as they could change the behaviour of how tests filter packages.
+    env:
+      MELOS_TEST: true
+
+  format: dart format -o write .
+
+  format-check:
+    exec: dart format . --output=none --set-exit-if-changed
+    description: Run `flutter format` checks for all packages.
+
+  version: dart scripts/generate_version.dart

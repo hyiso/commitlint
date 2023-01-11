@@ -1,0 +1,9 @@
+name: "commitlint_monorepo"
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+# This allows us to use commitlint on itself during development.
+executables:
+  commitlint: commitlint_local
