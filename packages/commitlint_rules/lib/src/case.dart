@@ -2,7 +2,10 @@ import 'package:commitlint_ensure/commitlint_ensure.dart';
 import 'package:commitlint_types/commitlint_types.dart';
 import 'package:conventional_commit/conventional_commit.dart';
 
-RuleOutcome typeCase(ConventionalCommit commit, CaseRuleConfig config) {
+RuleOutcome typeCase(ConventionalCommit commit, RuleConfig config) {
+  if (config is! CaseRuleConfig) {
+    throw Exception('$config is not CaseRuleConfig');
+  }
   final result = commit.type != null && ensureCase(commit.type!, config.type);
   final negated = config.condition == RuleConfigCondition.never;
   return RuleOutcome(
@@ -15,7 +18,10 @@ RuleOutcome typeCase(ConventionalCommit commit, CaseRuleConfig config) {
   );
 }
 
-RuleOutcome scopeCase(ConventionalCommit commit, CaseRuleConfig config) {
+RuleOutcome scopeCase(ConventionalCommit commit, RuleConfig config) {
+  if (config is! CaseRuleConfig) {
+    throw Exception('$config is not CaseRuleConfig');
+  }
   final result = commit.type != null && ensureCase(commit.type!, config.type);
   final negated = config.condition == RuleConfigCondition.never;
   return RuleOutcome(
@@ -28,7 +34,10 @@ RuleOutcome scopeCase(ConventionalCommit commit, CaseRuleConfig config) {
   );
 }
 
-RuleOutcome bodyCase(ConventionalCommit commit, CaseRuleConfig config) {
+RuleOutcome bodyCase(ConventionalCommit commit, RuleConfig config) {
+  if (config is! CaseRuleConfig) {
+    throw Exception('$config is not CaseRuleConfig');
+  }
   final result = commit.type != null && ensureCase(commit.type!, config.type);
   final negated = config.condition == RuleConfigCondition.never;
   return RuleOutcome(

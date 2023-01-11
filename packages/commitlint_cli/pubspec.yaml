@@ -9,8 +9,10 @@ environment:
 
 dependencies:
   args: ^2.3.1
+  commitlint_lint:
+  commitlint_load:
   commitlint_read:
-  conventional_commit: ^0.5.0+1
+  commitlint_types:
   path: ^1.8.0
   meta: ^1.8.0
   yaml: ^3.1.1

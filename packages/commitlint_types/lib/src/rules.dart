@@ -20,14 +20,14 @@ abstract class RuleConfig {
 
 class RuleOutcome {
   final bool valid;
-  final String? message;
+  final String message;
 
-  RuleOutcome({required this.valid, this.message});
+  RuleOutcome({required this.valid, required this.message});
 }
 
-typedef Rule<T extends RuleConfig> = RuleOutcome Function(ConventionalCommit, T config);
+typedef Rule = RuleOutcome Function(ConventionalCommit, RuleConfig config);
 
-class EmptyRuleConfig<T> extends RuleConfig {
+class EmptyRuleConfig extends RuleConfig {
 
   @override
   final RuleConfigSeverity severity;
