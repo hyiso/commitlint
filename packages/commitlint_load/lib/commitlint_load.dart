@@ -6,16 +6,11 @@ import 'package:commitlint_types/commitlint_types.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
-Future<Map<String, RuleConfig>?> load({
-  LoadOptions? options,
-}) async {
-  if (options != null) {
-    return await _parse(options);
-  }
-  return null;
+Future<Map<String, RuleConfig>> load(LoadOptions options) async {
+  return await _parse(options);
 }
 
-Future<Map<String, RuleConfig>?> _parse(LoadOptions options) async {
+Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
   Map<String, RuleConfig>? rules;
   if (options.file != null) {
     String path = options.file!;
@@ -45,7 +40,7 @@ Future<Map<String, RuleConfig>?> _parse(LoadOptions options) async {
 
         while (include != null) {
           final upstream = await _parse(LoadOptions(cwd: dirname(include), file: include));
-          if (upstream != null) {
+          if (upstream.isNotEmpty) {
             return {
               ...upstream,
               ...rules,
@@ -58,7 +53,7 @@ Future<Map<String, RuleConfig>?> _parse(LoadOptions options) async {
       }
     }
   }
-  return rules;
+  return rules ?? {};
 }
 
 class LoadOptions {

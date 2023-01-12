@@ -1,4 +1,4 @@
-import '../packages/commitlint_cli/bin/cli.dart' as cli;
+import '../packages/commitlint_cli/bin/commitlint_cli.dart' as cli;
 
 // A copy of packages/commitlint_cli/bin/cli.dart
 // This allows us to use commitlint_cli on itself during development.

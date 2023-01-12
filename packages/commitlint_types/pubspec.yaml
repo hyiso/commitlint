@@ -8,7 +8,6 @@ environment:
 
 dependencies:
   conventional_commit: ^0.5.0+1
-  tuple: ^2.0.1
 
 dev_dependencies:
   lints: ^2.0.0

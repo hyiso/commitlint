@@ -8,8 +8,8 @@ environment:
 
 dependencies:
   conventional_commit: ^0.5.0+1
-  commitlint_ensure:
-  commitlint_types:
+  commitlint_ensure: ^0.1.0
+  commitlint_types: ^0.1.0
 
 dev_dependencies:
   lints: ^2.0.0

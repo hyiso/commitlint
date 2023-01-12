@@ -1,8 +1,37 @@
-name: "commitlint_monorepo"
+name: commitlint_local
 publish_to: none
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
+
+dev_dependencies:
+  args: ^2.3.1
+  commitlint_cli: ^0.1.0
+  commitlint_ensure: ^0.1.0
+  commitlint_format: ^0.1.0
+  commitlint_lint: ^0.1.0
+  commitlint_load: ^0.1.0
+  commitlint_read: ^0.1.0
+  commitlint_rules: ^0.1.0
+  commitlint_types: ^0.1.0
+
+dependency_overrides:
+  commitlint_cli:
+    path: ./packages/commitlint_cli
+  commitlint_ensure:
+    path: ./packages/commitlint_ensure
+  commitlint_format:
+    path: ./packages/commitlint_format
+  commitlint_lint:
+    path: ./packages/commitlint_lint
+  commitlint_load:
+    path: ./packages/commitlint_load
+  commitlint_read:
+    path: ./packages/commitlint_read
+  commitlint_rules:
+    path: ./packages/commitlint_rules
+  commitlint_types:
+    path: ./packages/commitlint_types
 
 # This allows us to use commitlint on itself during development.
 executables:

@@ -9,10 +9,11 @@ environment:
 
 dependencies:
   args: ^2.3.1
-  commitlint_lint:
-  commitlint_load:
-  commitlint_read:
-  commitlint_types:
+  commitlint_format: ^0.1.0
+  commitlint_lint: ^0.1.0
+  commitlint_load: ^0.1.0
+  commitlint_read: ^0.1.0
+  commitlint_types: ^0.1.0
   path: ^1.8.0
   meta: ^1.8.0
   yaml: ^3.1.1

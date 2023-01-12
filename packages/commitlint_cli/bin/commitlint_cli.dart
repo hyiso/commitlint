@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:collection/collection.dart';
+import 'package:commitlint_format/commitlint_format.dart';
 import 'package:commitlint_lint/commitlint_lint.dart';
 import 'package:commitlint_load/commitlint_load.dart';
 import 'package:commitlint_read/commitlint_read.dart';
@@ -33,11 +34,11 @@ void main(List<String> args) async {
   final to = argResults['to'] as String?;
 
   final messages = await read(from: from, to: to);
-  final rules = await load(options: LoadOptions(cwd: Directory.current.path, file: 'commitlint.yaml'));
+  final rules = await load(LoadOptions(cwd: Directory.current.path, file: 'commitlint.yaml'));
   final results = (await Future.wait(
-    messages.map((message) => lint(message, rules!))
+    messages.map((message) => lint(message, rules))
   )).whereNotNull().toList();
-  if (rules == null) {
+  if (rules.isEmpty) {
 		var input = '';
 
 		if (results.isNotEmpty) {
@@ -71,6 +72,7 @@ void main(List<String> args) async {
     }
   );
 
-  /// TODO: format report
+  final output = format(report: report);
 
+  stderr.write(output);
 }
