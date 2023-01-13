@@ -13,6 +13,9 @@ RuleConfig extractRuleConfig(dynamic config) {
   if (config.length == 3) {
     value = config.last;
   }
+  if (value == null) {
+    return RuleConfig(severity: severity, condition: condition);
+  }
   if (value is num) {
     return LengthRuleConfig(
       severity: severity,
@@ -28,7 +31,7 @@ RuleConfig extractRuleConfig(dynamic config) {
         type: _extractCase(value),
       );
     } else {
-      return ValueRuleConfig<String>(
+      return ValueRuleConfig(
         severity: severity,
         condition: condition,
         value: value,

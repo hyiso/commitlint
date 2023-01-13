@@ -22,13 +22,13 @@ scripts:
     run: dart analyze . --fatal-infos
     exec:
       concurrency: 1
-    description: Run `dart analyze` in all packages.
+    description: Run `dart analyze` checks for all packages.
 
   test:
     run: dart test --reporter expanded
     exec:
       concurrency: 1
-    description: Run Dart tests for a specific package in this project.
+    description: Run `Dart test` for specific packages in this project.
     select-package:
       flutter: false
       dir-exists: 
@@ -42,6 +42,6 @@ scripts:
 
   format-check:
     exec: dart format . --output=none --set-exit-if-changed
-    description: Run `flutter format` checks for all packages.
+    description: Run `dart format` checks for all packages.
 
   version: dart scripts/generate_version.dart

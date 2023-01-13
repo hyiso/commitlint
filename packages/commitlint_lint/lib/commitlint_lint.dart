@@ -15,7 +15,7 @@ Future<LintOutcome?> lint(String message, Map<String, RuleConfig> rulesConfig) a
   if (commit.isMergeCommit) {
     return LintOutcome(input: message, valid: true, errors: [], warnings: []);
   }
-  final allRules = Map.of(defaultsRules);
+  final allRules = Map.of(supportedRules);
   /// Find invalid rules configs
 	final missing = rulesConfig.keys.where(
 		(key) => !allRules.containsKey(key)

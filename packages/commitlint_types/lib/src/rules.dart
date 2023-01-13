@@ -13,9 +13,14 @@ enum RuleConfigCondition {
   never,
 }
 
-abstract class RuleConfig {
-  RuleConfigSeverity get severity;
-  RuleConfigCondition get condition;
+class RuleConfig {
+  final RuleConfigSeverity severity;
+  final RuleConfigCondition condition;
+
+  RuleConfig({
+    required this.severity,
+    required this.condition,
+  });
 }
 
 class RuleOutcome {
@@ -27,82 +32,52 @@ class RuleOutcome {
 
 typedef Rule = RuleOutcome Function(ConventionalCommit, RuleConfig config);
 
-class EmptyRuleConfig extends RuleConfig {
+class ValueRuleConfig extends RuleConfig {
 
-  @override
-  final RuleConfigSeverity severity;
-
-  @override
-  final RuleConfigCondition condition;
-
-  EmptyRuleConfig({
-    required this.severity,
-    required this.condition,
-  });
-}
-
-class ValueRuleConfig<T> extends RuleConfig {
-
-  @override
-  final RuleConfigSeverity severity;
-
-  @override
-  final RuleConfigCondition condition;
-
-  final T value;
+  final String value;
 
   ValueRuleConfig({
-    required this.severity,
-    required this.condition,
+    required RuleConfigSeverity severity,
+    required RuleConfigCondition condition,
     required this.value,
-  });
+  }) : super(severity: severity, condition: condition);
 }
 
-class LengthRuleConfig extends ValueRuleConfig<num> {
+class LengthRuleConfig extends RuleConfig {
+
+  final num length;
+
   LengthRuleConfig({
     required RuleConfigSeverity severity,
     required RuleConfigCondition condition,
-    required num length,
+    required this.length,
   }) : super(
     severity: severity,
     condition: condition,
-    value: length,
   );
 
 }
 
 class EnumRuleConfig extends RuleConfig {
 
-  @override
-  final RuleConfigSeverity severity;
-
-  @override
-  final RuleConfigCondition condition;
-
   final List<String> allowed;
 
   EnumRuleConfig({
-    required this.severity,
-    required this.condition,
+    required RuleConfigSeverity severity,
+    required RuleConfigCondition condition,
     required this.allowed,
-  });
+  }) : super(severity: severity, condition: condition);
 
 }
 
 class CaseRuleConfig extends RuleConfig {
 
-  @override
-  final RuleConfigSeverity severity;
-
-  @override
-  final RuleConfigCondition condition;
-
   final Case type;
 
   CaseRuleConfig({
-    required this.severity,
-    required this.condition,
+    required RuleConfigSeverity severity,
+    required RuleConfigCondition condition,
     required this.type,
-  });
+  }) : super(severity: severity, condition: condition);
 
 }

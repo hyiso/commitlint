@@ -7,8 +7,8 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
+  change_case: ^1.0.0+3
   conventional_commit: ^0.5.0+1
-  commitlint_ensure: ^0.1.0
   commitlint_types: ^0.1.0
 
 dev_dependencies:

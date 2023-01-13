@@ -7,7 +7,6 @@ environment:
 dev_dependencies:
   args: ^2.3.1
   commitlint_cli: ^0.1.0
-  commitlint_ensure: ^0.1.0
   commitlint_format: ^0.1.0
   commitlint_lint: ^0.1.0
   commitlint_load: ^0.1.0
@@ -18,8 +17,6 @@ dev_dependencies:
 dependency_overrides:
   commitlint_cli:
     path: ./packages/commitlint_cli
-  commitlint_ensure:
-    path: ./packages/commitlint_ensure
   commitlint_format:
     path: ./packages/commitlint_format
   commitlint_lint:
