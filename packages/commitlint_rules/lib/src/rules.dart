@@ -12,18 +12,18 @@ enum CommitComponent {
 }
 
 extension PartialConventionalCommit on ConventionalCommit {
-  T componentRaw<T>(CommitComponent component) {
+  T? componentRaw<T>(CommitComponent component) {
     switch (component) {
       case CommitComponent.type:
-        return type as T;
+        return type as T?;
       case CommitComponent.scope:
-        return scopes as T;
+        return scopes as T?;
       case CommitComponent.header:
-        return header as T;
+        return header as T?;
       case CommitComponent.body:
-        return body as T;
+        return body as T?;
       case CommitComponent.footer:
-        return footers as T;
+        return footers as T?;
     }
   }
 }
@@ -177,7 +177,7 @@ Rule enumRule(CommitComponent component) {
       throw Exception('$config is not EnumRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = config.allowed.contains(raw);
+    final result = ensureEnum(raw, config.allowed);
     final negated = config.condition == RuleConfigCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,

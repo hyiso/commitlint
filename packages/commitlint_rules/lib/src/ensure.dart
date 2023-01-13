@@ -54,3 +54,16 @@ bool ensureEmpty(dynamic raw) {
   }
   return false;
 }
+
+bool ensureEnum(dynamic raw, Iterable enums) {
+  if (raw == null) {
+    return true;
+  }
+  if (raw is String) {
+    return raw.isEmpty || enums.contains(raw);
+  }
+  if (raw is Iterable) {
+    return raw.isEmpty || raw.every((element) => enums.contains(element));
+  }
+  return false;
+}

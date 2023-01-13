@@ -30,7 +30,7 @@ Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
         if (yaml['include'] is String) {
           include = yaml['include'];
         }
-        final rules = <String, RuleConfig>{};
+        rules = <String, RuleConfig>{};
         if (yaml['rules'] is Map) {
           final rulesMap = (yaml['rules'] as Map).cast<String, dynamic>();
           for (var entry in rulesMap.entries) {
@@ -38,18 +38,15 @@ Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
           }
         }
 
-        while (include != null) {
+        if (include != null) {
           final upstream = await _parse(LoadOptions(cwd: dirname(include), file: include));
           if (upstream.isNotEmpty) {
-            return {
+            rules = {
               ...upstream,
               ...rules,
             };
-          } else {
-            return rules;
           }
         }
-        ;
       }
     }
   }

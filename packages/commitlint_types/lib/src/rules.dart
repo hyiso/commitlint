@@ -2,6 +2,7 @@
 import 'package:conventional_commit/conventional_commit.dart';
 import 'case.dart';
 
+/// 0 disables the rule. For 1 it will be considered a warning for 2 an error
 enum RuleConfigSeverity {
   ignore,
   warning,

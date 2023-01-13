@@ -44,7 +44,7 @@ Future<Iterable<String>> _getEditingCommit() async {
   final msgFile = File(join(root, '.git', 'COMMIT_EDITMSG'));
 
   if (await msgFile.exists()) {
-    return await msgFile.readAsLines();
+    return [msgFile.readAsStringSync()];
   }
   return [];
 }

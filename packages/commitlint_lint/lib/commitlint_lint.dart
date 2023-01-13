@@ -7,10 +7,20 @@ import 'package:commitlint_rules/commitlint_rules.dart';
 import 'package:commitlint_types/commitlint_types.dart';
 import 'package:conventional_commit/conventional_commit.dart';
 
-Future<LintOutcome?> lint(String message, Map<String, RuleConfig> rulesConfig) async {
+Future<LintOutcome> lint(String message, Map<String, RuleConfig> rulesConfig) async {
   final commit = ConventionalCommit.tryParse(message);
   if (commit == null) {
-    return null;
+    return LintOutcome(input: message, valid: false, errors: [
+      LintRuleOutcome(
+        level: RuleConfigSeverity.error,
+        valid: false,
+        name: 'message-format',
+        message: [
+            'Commit message does not meet the conventional commit format.',
+            '   - See format guide: https://www.conventionalcommits.org',
+          ].join('\n'),
+      ),
+    ], warnings: []);
   }
   if (commit.isMergeCommit) {
     return LintOutcome(input: message, valid: true, errors: [], warnings: []);
@@ -46,7 +56,9 @@ Future<LintOutcome?> lint(String message, Map<String, RuleConfig> rulesConfig) a
         name: name,
         message: ruleOutcome.message,
       );
-		});
+		})
+    .where((outcome) => !outcome.valid)
+    .toList();
   final errors = results.where((element) => element.level == RuleConfigSeverity.error);
   final warnings = results.where((element) => element.level == RuleConfigSeverity.warning);
   return LintOutcome(
