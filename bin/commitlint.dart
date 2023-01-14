@@ -10,5 +10,5 @@ void main(List<String> arguments) async {
     print('---------------------------------------------------------');
     print('');
   }
-  cli.main(arguments);
+  await cli.main(arguments);
 }

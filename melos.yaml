@@ -45,3 +45,4 @@ scripts:
     description: Run `dart format` checks for all packages.
 
   version: dart scripts/generate_version.dart
+  bootstrap: dart pub get && dart run husky install

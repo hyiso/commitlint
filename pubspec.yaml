@@ -14,6 +14,9 @@ dev_dependencies:
   commitlint_read: ^0.1.0
   commitlint_rules: ^0.1.0
   commitlint_types: ^0.1.0
+  husky: ^0.1.1
+  path: ^1.8.0
+  yaml: ^3.1.0
 
 dependency_overrides:
   commitlint_cli:

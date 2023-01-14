@@ -7,7 +7,7 @@ import 'package:commitlint_load/commitlint_load.dart';
 import 'package:commitlint_read/commitlint_read.dart';
 import 'package:commitlint_types/commitlint_types.dart';
 
-void main(List<String> args) async {
+Future<void> main(List<String> args) async {
   final argParser = ArgParser()
     ..addOption('config',
         help: 'path to the config file')
@@ -69,6 +69,9 @@ void main(List<String> args) async {
   final output = format(report: report);
 
   stderr.write(output);
+  if (!report.valid) {
+    exit(1);
+  }
 }
 
 Future<Iterable<String>> _stdin() async {
