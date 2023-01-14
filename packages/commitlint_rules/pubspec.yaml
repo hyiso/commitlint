@@ -1,7 +1,10 @@
 name: commitlint_rules
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+description:
+  Commitlint is a tool for lint commit messages.
+  This is the rules package for commitlint cli package.
+version: 0.1.0
+homepage: https://github.com/hyiso/commitlint
+repository: https://github.com/hyiso/commitlint/packages/commitlint_rules
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

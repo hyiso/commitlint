@@ -1,6 +1,10 @@
 name: commitlint_lint
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
+description:
+  Commitlint is a tool for lint commit messages.
+  This package is for linting commit messages according to configured rules.
+version: 0.1.0
+homepage: https://github.com/hyiso/commitlint
+repository: https://github.com/hyiso/commitlint/packages/commitlint_lint
 # homepage: https://www.example.com
 
 environment:

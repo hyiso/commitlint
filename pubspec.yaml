@@ -1,4 +1,4 @@
-name: commitlint_local
+name: commitlint_monorepo
 publish_to: none
 
 environment:
@@ -38,4 +38,4 @@ dependency_overrides:
 
 # This allows us to use commitlint on itself during development.
 executables:
-  commitlint: commitlint_local
+  commitlint:

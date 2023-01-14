@@ -50,7 +50,7 @@ Future<void> main(List<String> args) async {
             name: 'empty-rules',
             message: [
                 'Please add rules to your \'commitlint.yaml\'',
-                '   - Example config: https://github.com/hyiso/commitlint/blob/main/packages/commitlint_config/lib/commitlint.yaml',
+                '   - Example config: https://github.com/hyiso/commitlint/blob/main/commitlint.yaml',
               ].join('\n'),
           )
         ],

@@ -1,10 +1,13 @@
 name: commitlint_config
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+description:
+  Commitlint is a tool for lint commit messages.
+  This package is for common and recommend configurations.
+version: 0.1.0
+homepage: https://github.com/hyiso/commitlint
+repository: https://github.com/hyiso/commitlint/packages/commitlint_config
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 # dependencies:
 #   path: ^1.8.0

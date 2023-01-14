@@ -1,6 +1,8 @@
 name: commitlint_read
-description: A package used for commlint cli to read commit messages in given range(from, to), or in given file (default ./.git/COMMIT_EDITMSG).
-version: 0.1.0
+description:
+  Commitlint is a tool for lint commit messages.
+  This package is for reading commit messages according to arguments passed.
+version: 0.1.1
 homepage: https://github.com/hyiso/commitlint
 repository: https://github.com/hyiso/commitlint/packages/commitlint_read
 
