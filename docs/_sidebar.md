@@ -1,0 +1,7 @@
+- Guides
+  - [Setup](guides-setup.md)
+- Concepts
+  - [Convensional commits](concepts-convensional-commits.md)
+  - [Shareable config](concepts-shareable-config.md)
+- References
+  - [Rules](references-rules.md)

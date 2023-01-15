@@ -41,8 +41,6 @@ commitlint --from=HEAD~1
 
 ## Documentation
 
-See [documention](https://hyiso.github.io/commitlint)
-
 - **Guides** - Common use cases explained in a step-by-step pace
 - **Concepts** - Overarching topics important to understand the use of `commitlint`
 - **Reference** - Mostly technical documentation

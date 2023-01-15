@@ -36,3 +36,7 @@ git add .
 git commit -m "Keep calm and commit"
 # `ddart run commitlint_cli --edit "$1"` will run
 ```
+
+# Documentation
+
+See [documention](https://hyiso.github.io/commitlint)
