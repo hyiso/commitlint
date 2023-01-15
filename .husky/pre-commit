@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-dart analyze . --fatal-infos
+melos analyze
+melos format-check
+# melos test  --no-select

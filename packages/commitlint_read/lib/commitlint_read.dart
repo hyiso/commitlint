@@ -7,25 +7,18 @@ import 'dart:io';
 import 'package:path/path.dart';
 
 /// Read commit messages in given range([from], [to]),
-///  or in [edit] file. 
+///  or in [edit] file.
 /// Return commit messages list.
-Future<Iterable<String>> read({
-  String? from,
-  String? to,
-  String edit = './.git/COMMIT_EDITMSG'
-}) async {
+Future<Iterable<String>> read(
+    {String? from, String? to, String edit = './.git/COMMIT_EDITMSG'}) async {
   if (from == null && to == null) {
     return await _getEditingCommit();
   }
   return _getRangeCommits(from, to);
-
 }
 
 Future<Iterable<String>> _getRangeCommits(String? from, String? to) async {
-  final range = [
-    if (from != null) from,
-    to ?? 'HEAD'
-  ].join('..');
+  final range = [if (from != null) from, to ?? 'HEAD'].join('..');
   final result = await Process.run(
     'git',
     ['log', '--format=%B', range],

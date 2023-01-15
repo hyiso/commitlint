@@ -44,4 +44,5 @@ scripts:
     exec: dart format . --output=none --set-exit-if-changed
     description: Run `dart format` checks for all packages.
 
+  version: dart scripts/generate_version.dart && git add packages/commitlit_cli/lib/src/version.g.dart
   bootstrap: dart pub get && dart run husky install

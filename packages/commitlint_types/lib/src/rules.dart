@@ -1,4 +1,3 @@
-
 import 'package:conventional_commit/conventional_commit.dart';
 import 'case.dart';
 
@@ -34,7 +33,6 @@ class RuleOutcome {
 typedef Rule = RuleOutcome Function(ConventionalCommit, RuleConfig config);
 
 class ValueRuleConfig extends RuleConfig {
-
   final String value;
 
   ValueRuleConfig({
@@ -45,7 +43,6 @@ class ValueRuleConfig extends RuleConfig {
 }
 
 class LengthRuleConfig extends RuleConfig {
-
   final num length;
 
   LengthRuleConfig({
@@ -53,14 +50,12 @@ class LengthRuleConfig extends RuleConfig {
     required RuleConfigCondition condition,
     required this.length,
   }) : super(
-    severity: severity,
-    condition: condition,
-  );
-
+          severity: severity,
+          condition: condition,
+        );
 }
 
 class EnumRuleConfig extends RuleConfig {
-
   final List<String> allowed;
 
   EnumRuleConfig({
@@ -68,11 +63,9 @@ class EnumRuleConfig extends RuleConfig {
     required RuleConfigCondition condition,
     required this.allowed,
   }) : super(severity: severity, condition: condition);
-
 }
 
 class CaseRuleConfig extends RuleConfig {
-
   final Case type;
 
   CaseRuleConfig({
@@ -80,5 +73,4 @@ class CaseRuleConfig extends RuleConfig {
     required RuleConfigCondition condition,
     required this.type,
   }) : super(severity: severity, condition: condition);
-
 }

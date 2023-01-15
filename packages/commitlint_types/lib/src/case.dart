@@ -7,14 +7,14 @@
 /// 'snake-case'    // snake_case
 /// 'capital-case'    // Start Case
 enum Case {
-  lower,    // default
-  upper,    // UPPERCASE
-  camel,    // camelCase
-  kebab,    // kebab-case
-  pascal,   // PascalCase
+  lower, // default
+  upper, // UPPERCASE
+  camel, // camelCase
+  kebab, // kebab-case
+  pascal, // PascalCase
   sentence, // Sentence case
-  snake,    // snake_case
-  capital,    // Capital Case
+  snake, // snake_case
+  capital, // Capital Case
 }
 
 extension CaseName on Case {

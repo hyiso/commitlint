@@ -39,7 +39,8 @@ Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
         }
 
         if (include != null) {
-          final upstream = await _parse(LoadOptions(cwd: dirname(currentFile), file: include));
+          final upstream = await _parse(
+              LoadOptions(cwd: dirname(currentFile), file: include));
           if (upstream.isNotEmpty) {
             rules = {
               ...upstream,

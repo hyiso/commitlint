@@ -28,7 +28,6 @@ extension PartialConventionalCommit on ConventionalCommit {
   }
 }
 
-
 /// Build full stop rule for commit component.
 Rule fullStopRule(CommitComponent component) {
   return (ConventionalCommit commit, RuleConfig config) {
@@ -49,7 +48,6 @@ Rule fullStopRule(CommitComponent component) {
   };
 }
 
-
 /// Build leanding blank rule for commit component.
 Rule leadingBlankRule(CommitComponent component) {
   return (ConventionalCommit commit, RuleConfig config) {
@@ -67,7 +65,6 @@ Rule leadingBlankRule(CommitComponent component) {
   };
 }
 
-
 /// Build leanding blank rule for commit component.
 Rule emptyRule(CommitComponent component) {
   return (ConventionalCommit commit, RuleConfig config) {
@@ -76,11 +73,8 @@ Rule emptyRule(CommitComponent component) {
     final negated = config.condition == RuleConfigCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
-      message: [
-        '${component.name} must',
-        if (negated) 'not',
-        'be empty'
-      ].join(' '),
+      message:
+          ['${component.name} must', if (negated) 'not', 'be empty'].join(' '),
     );
   };
 }
@@ -103,13 +97,11 @@ Rule caseRule(CommitComponent component) {
       ].join(' '),
     );
   };
-
 }
 
 /// Build max length rule for commit component.
 Rule maxLengthRule(CommitComponent component) {
   return (ConventionalCommit commit, RuleConfig config) {
-  
     if (config is! LengthRuleConfig) {
       throw Exception('$config is not LengthRuleConfig');
     }
@@ -125,13 +117,11 @@ Rule maxLengthRule(CommitComponent component) {
       ].join(' '),
     );
   };
-
 }
 
 /// Build max line length rule for commit component.
 Rule maxLineLengthRule(CommitComponent component) {
   return (ConventionalCommit commit, RuleConfig config) {
-  
     if (config is! LengthRuleConfig) {
       throw Exception('$config is not LengthRuleConfig');
     }
@@ -147,7 +137,6 @@ Rule maxLineLengthRule(CommitComponent component) {
       ].join(' '),
     );
   };
-
 }
 
 /// Build min length rule for commit component.
@@ -168,7 +157,6 @@ Rule minLengthRule(CommitComponent component) {
       ].join(' '),
     );
   };
-
 }
 
 Rule enumRule(CommitComponent component) {
@@ -188,5 +176,4 @@ Rule enumRule(CommitComponent component) {
       ].join(' '),
     );
   };
-
 }

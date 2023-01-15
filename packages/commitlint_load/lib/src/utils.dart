@@ -5,7 +5,8 @@ RuleConfig extractRuleConfig(dynamic config) {
     throw Exception('rule config must be list, but get $config');
   }
   if (config.isEmpty || config.length < 2 || config.length > 3) {
-    throw Exception('rule config must contain at least two, at most three items.');
+    throw Exception(
+        'rule config must contain at least two, at most three items.');
   }
   final severity = _extractRuleConfigSeverity(config.first as int);
   final condition = _extractRuleConfigCondition(config.elementAt(1) as String);
@@ -50,15 +51,14 @@ RuleConfig extractRuleConfig(dynamic config) {
     condition: condition,
     value: value,
   );
-
 }
 
 RuleConfigSeverity _extractRuleConfigSeverity(int severity) {
   if (severity < 0 || severity > RuleConfigSeverity.values.length - 1) {
-    throw Exception('rule severity can only be 0..${RuleConfigSeverity.values.length - 1}');
+    throw Exception(
+        'rule severity can only be 0..${RuleConfigSeverity.values.length - 1}');
   }
   return RuleConfigSeverity.values[severity];
-
 }
 
 RuleConfigCondition _extractRuleConfigCondition(String condition) {

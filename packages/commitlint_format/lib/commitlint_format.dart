@@ -14,19 +14,20 @@ String format({
   return report.results
       .where((result) => result.errors.isNotEmpty || result.warnings.isNotEmpty)
       .map((result) => [..._formatInput(result), ..._formatResult(result)])
-      .fold<Iterable<String>>(<String>[], (previousValue, element) => [...previousValue, ...element])
-      .join('\n');
+      .fold<Iterable<String>>(
+          <String>[],
+          (previousValue, element) =>
+              [...previousValue, ...element]).join('\n');
 }
 
 List<String> _formatInput(LintOutcome result) {
   final sign = '⧗';
   final decoration = Colorize(sign).darkGray();
-  final commitText = result.errors.isNotEmpty ? result.input : result.input.split('\n').first;
+  final commitText =
+      result.errors.isNotEmpty ? result.input : result.input.split('\n').first;
   final decoratedInput = Colorize(commitText).bold();
   final hasProblem = result.errors.isNotEmpty || result.warnings.isNotEmpty;
-  return hasProblem
-      ? ['$decoration  input: $decoratedInput'] 
-      : [];
+  return hasProblem ? ['$decoration  input: $decoratedInput'] : [];
 }
 
 List<String> _formatResult(LintOutcome result) {
@@ -51,7 +52,6 @@ List<String> _formatResult(LintOutcome result) {
     fmtSummary.toString(),
     if (problems.isNotEmpty) '',
   ];
-
 }
 
 String _selectSign(LintOutcome result) {
@@ -65,5 +65,5 @@ Styles _selectColor(LintOutcome result) {
   if (result.errors.isNotEmpty) {
     return Styles.RED;
   }
-  return result.warnings.isNotEmpty ?Styles.YELLOW : Styles.GREEN;
+  return result.warnings.isNotEmpty ? Styles.YELLOW : Styles.GREEN;
 }

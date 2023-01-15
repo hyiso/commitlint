@@ -4,4 +4,5 @@
   - [Convensional commits](concepts-convensional-commits.md)
   - [Shareable config](concepts-shareable-config.md)
 - References
+  - [CLI](references-cli.md)
   - [Rules](references-rules.md)

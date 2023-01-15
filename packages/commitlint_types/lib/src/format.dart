@@ -14,18 +14,17 @@ class FormattableReport {
   });
 
   factory FormattableReport.empty() => FormattableReport(
-    valid: true,
-    errorCount: 0,
-    warningCount: 0,
-    results: [],
-  );
+        valid: true,
+        errorCount: 0,
+        warningCount: 0,
+        results: [],
+      );
 
   operator +(LintOutcome result) {
     return FormattableReport(
-      valid: result.valid && valid,
-      errorCount: errorCount + result.errors.length,
-      warningCount: warningCount + result.warnings.length,
-      results: results..add(result)
-    );
+        valid: result.valid && valid,
+        errorCount: errorCount + result.errors.length,
+        warningCount: warningCount + result.warnings.length,
+        results: results..add(result));
   }
 }

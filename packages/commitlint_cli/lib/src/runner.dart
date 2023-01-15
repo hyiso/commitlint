@@ -10,22 +10,26 @@ import 'package:commitlint_read/commitlint_read.dart';
 import 'package:commitlint_types/commitlint_types.dart';
 
 class CommitLintRunner extends CommandRunner {
-
-  CommitLintRunner() : super('commitlint', 'commitlint - Lint commit messages') {
-    argParser..addOption('config',
-        help: 'path to the config file')
-    ..addOption('edit',
-        help: 'read last commit message from the specified file.')
-    ..addOption('from',
-        help: 'lower end of the commit range to lint. This is preceded to --edit')
-    ..addOption('to',
-        help: 'upper end of the commit range to lint. This is preceded to --edit')
-    ..addFlag('version', negatable: false, help: 'display version information');
+  CommitLintRunner()
+      : super('commitlint', 'commitlint - Lint commit messages') {
+    argParser
+      ..addOption('config',
+          defaultsTo: 'commitlint.yaml', help: 'path to the config file')
+      ..addOption('edit',
+          help: 'read last commit message from the specified file.')
+      ..addOption('from',
+          help:
+              'lower end of the commit range to lint. This is preceded to --edit')
+      ..addOption('to',
+          help:
+              'upper end of the commit range to lint. This is preceded to --edit')
+      ..addFlag('version',
+          negatable: false, help: 'display version information');
   }
 
   @override
   String get invocation => '$executableName [arguments]\n\n'
-  '[input] reads from stdin if --edit, --from and --to are omitted';
+      '[input] reads from stdin if --edit, --from and --to are omitted';
 
   @override
   Future<void> runCommand(ArgResults topLevelResults) async {
@@ -33,8 +37,8 @@ class CommitLintRunner extends CommandRunner {
       stderr.writeln('commitlint@$kCurrentVersion');
       return;
     }
-    if (topLevelResults.arguments.contains('-h')
-        || topLevelResults.arguments.contains('--help')) {
+    if (topLevelResults.arguments.contains('-h') ||
+        topLevelResults.arguments.contains('--help')) {
       printUsage();
       return;
     }
@@ -45,13 +49,12 @@ class CommitLintRunner extends CommandRunner {
     final messages = fromStdin
         ? await _stdin()
         : await read(from: from, to: to, edit: edit ?? '.git/COMMIT_EDITMSG');
-    final rules = await load(LoadOptions(cwd: Directory.current.path, file: 'commitlint.yaml'));
+    final rules = await load(LoadOptions(
+        cwd: Directory.current.path, file: topLevelResults['config']));
     final results = (await Future.wait(
-      messages.map((message) async => await lint(message, rules))
-    ));
+        messages.map((message) async => await lint(message, rules))));
     if (rules.isEmpty) {
-      var input = '';
-
+      String input = '';
       if (results.isNotEmpty) {
         input = results.first.input;
       }
@@ -65,25 +68,20 @@ class CommitLintRunner extends CommandRunner {
               valid: false,
               name: 'empty-rules',
               message: [
-                  'Please add rules to your \'commitlint.yaml\'',
-                  '   - Example config: https://github.com/hyiso/commitlint/blob/main/commitlint.yaml',
-                ].join('\n'),
+                'Please add rules to your \'commitlint.yaml\'',
+                '   - Example config: https://github.com/hyiso/commitlint/blob/main/commitlint.yaml',
+              ].join('\n'),
             )
           ],
           warnings: [],
         )
       ]);
     }
-
     final report = results.fold<FormattableReport>(
       FormattableReport.empty(),
-      (info, result) {
-        return info + result;
-      }
+      (info, result) => info + result,
     );
-
     final output = format(report: report);
-
     stderr.write(output);
     if (!report.valid) {
       exit(1);
@@ -97,5 +95,4 @@ class CommitLintRunner extends CommandRunner {
     }
     return [];
   }
-
 }
