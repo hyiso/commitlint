@@ -13,13 +13,13 @@ Future<Map<String, RuleConfig>> load(LoadOptions options) async {
 Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
   Map<String, RuleConfig>? rules;
   if (options.file != null) {
-    String path = options.file!;
+    String currentFile = options.file!;
     Uri? uri;
     if (!options.file!.startsWith('package:')) {
-      path = join(options.cwd, options.file);
-      uri = toUri(path);
+      currentFile = join(options.cwd, options.file);
+      uri = toUri(currentFile);
     } else {
-      final packageUri = Uri.parse(path);
+      final packageUri = Uri.parse(currentFile);
       uri = await Isolate.resolvePackageUri(packageUri);
     }
     if (uri != null) {
@@ -39,7 +39,7 @@ Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
         }
 
         if (include != null) {
-          final upstream = await _parse(LoadOptions(cwd: dirname(include), file: include));
+          final upstream = await _parse(LoadOptions(cwd: dirname(currentFile), file: include));
           if (upstream.isNotEmpty) {
             rules = {
               ...upstream,
