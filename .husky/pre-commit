@@ -3,4 +3,4 @@
 
 melos analyze
 melos format-check
-# melos test  --no-select
+melos test  --no-select

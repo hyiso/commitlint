@@ -19,10 +19,10 @@ class CommitLintRunner extends CommandRunner {
           help: 'read last commit message from the specified file.')
       ..addOption('from',
           help:
-              'lower end of the commit range to lint. This is preceded to --edit')
+              'lower end of the commit range to lint. This is succeeded to --edit')
       ..addOption('to',
           help:
-              'upper end of the commit range to lint. This is preceded to --edit')
+              'upper end of the commit range to lint. This is succeeded to --edit')
       ..addFlag('version',
           negatable: false, help: 'display version information');
   }
@@ -46,11 +46,9 @@ class CommitLintRunner extends CommandRunner {
     final to = topLevelResults['to'] as String?;
     final edit = topLevelResults['edit'] as String?;
     bool fromStdin = from == null && to == null && edit == null;
-    final messages = fromStdin
-        ? await _stdin()
-        : await read(from: from, to: to, edit: edit ?? '.git/COMMIT_EDITMSG');
-    final rules = await load(LoadOptions(
-        cwd: Directory.current.path, file: topLevelResults['config']));
+    final messages =
+        fromStdin ? await _stdin() : await read(from: from, to: to, edit: edit);
+    final rules = await load(file: topLevelResults['config']);
     final results = (await Future.wait(
         messages.map((message) async => await lint(message, rules))));
     if (rules.isEmpty) {
