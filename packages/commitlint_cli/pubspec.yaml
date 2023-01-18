@@ -2,7 +2,7 @@ name: commitlint_cli
 description:
   Commitlint is a tool for lint commit messages.
   This package is the commitlint command line tool entry.
-version: 0.1.0+1
+version: 0.2.0
 homepage: https://github.com/hyiso/commitlint
 repository: https://github.com/hyiso/commitlint/packages/commitlint_cli
 
@@ -13,8 +13,8 @@ dependencies:
   args: ^2.3.1
   commitlint_format: ^0.1.0
   commitlint_lint: ^0.1.0
-  commitlint_load: ^0.1.0+1
-  commitlint_read: ^0.1.0
+  commitlint_load: ^0.1.0+2
+  commitlint_read: ^0.2.0
   commitlint_types: ^0.1.0
   path: ^1.8.0
   meta: ^1.8.0

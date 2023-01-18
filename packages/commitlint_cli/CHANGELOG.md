@@ -1,3 +1,10 @@
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **FEAT**: change cli to CommandRunner. ([f8b640ab](https://github.com/hyiso/commitlint/commit/f8b640ab1b337ed27ae4b37808d4fea74869c709))
+ - **BREAKING** **FEAT**: change --edit preceded to --from and --to. ([fb9a6a8d](https://github.com/hyiso/commitlint/commit/fb9a6a8d33b87d8ee3784642e284a68b6cc90dea))
+
 ## 0.1.0+1
 
  - **DOCS**: add usage documentation. ([23f70976](https://github.com/hyiso/commitlint/commit/23f70976f2bb87776a0951f6fb7ccb067f743c52))
