@@ -1,0 +1,7 @@
+include: ./rules.yaml
+
+rules:
+  type-case:
+    - 2
+    - always
+    - 'upper-case'
