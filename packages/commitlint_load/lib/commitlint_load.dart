@@ -1,68 +1,123 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:commitlint_load/src/utils.dart';
 import 'package:commitlint_types/commitlint_types.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
-Future<Map<String, RuleConfig>> load(LoadOptions options) async {
-  return await _parse(options);
-}
-
-Future<Map<String, RuleConfig>> _parse(LoadOptions options) async {
-  Map<String, RuleConfig>? rules;
-  if (options.file != null) {
-    String currentFile = options.file!;
-    Uri? uri;
-    if (!options.file!.startsWith('package:')) {
-      currentFile = join(options.cwd, options.file);
-      uri = toUri(currentFile);
-    } else {
-      final packageUri = Uri.parse(currentFile);
-      uri = await Isolate.resolvePackageUri(packageUri);
-    }
-    if (uri != null) {
-      final file = File.fromUri(uri);
-      if (await file.exists()) {
-        final yaml = loadYaml(await file.readAsString());
-        String? include;
-        if (yaml['include'] is String) {
-          include = yaml['include'];
+Future<Map<String, RuleConfig>> load({
+  required String file,
+  String? dir,
+}) async {
+  Map<String, RuleConfig> rules = {};
+  Uri? uri;
+  if (!file.startsWith('package:')) {
+    uri = toUri(join(dir ?? Directory.current.path, file));
+    dir = dirname(uri.path);
+  } else {
+    uri = await Isolate.resolvePackageUri(Uri.parse(file));
+    dir = uri?.path.split('/lib/').first;
+  }
+  if (uri != null) {
+    final file = File.fromUri(uri);
+    if (await file.exists()) {
+      final yaml = loadYaml(await file.readAsString());
+      final include = yaml?['include'] as String?;
+      final rulesMap = yaml?['rules'] as Map?;
+      if (rulesMap != null) {
+        for (var entry in rulesMap.entries) {
+          rules[entry.key] = _extractRuleConfig(entry.value);
         }
-        rules = <String, RuleConfig>{};
-        if (yaml['rules'] is Map) {
-          final rulesMap = (yaml['rules'] as Map).cast<String, dynamic>();
-          for (var entry in rulesMap.entries) {
-            rules[entry.key] = extractRuleConfig(entry.value);
-          }
-        }
-
-        if (include != null) {
-          final upstream = await _parse(
-              LoadOptions(cwd: dirname(currentFile), file: include));
-          if (upstream.isNotEmpty) {
-            rules = {
-              ...upstream,
-              ...rules,
-            };
-          }
+      }
+      if (include != null) {
+        final upstream = await load(dir: dir, file: include);
+        if (upstream.isNotEmpty) {
+          rules = {
+            ...upstream,
+            ...rules,
+          };
         }
       }
     }
   }
-  return rules ?? {};
+  return rules;
 }
 
-class LoadOptions {
-  /// Path to the config file to load.
-  final String? file;
+RuleConfig _extractRuleConfig(dynamic config) {
+  if (config is! List) {
+    throw Exception('rule config must be list, but get $config');
+  }
+  if (config.isEmpty || config.length < 2 || config.length > 3) {
+    throw Exception(
+        'rule config must contain at least two, at most three items.');
+  }
+  final severity = _extractRuleConfigSeverity(config.first as int);
+  final condition = _extractRuleConfigCondition(config.elementAt(1) as String);
+  dynamic value;
+  if (config.length == 3) {
+    value = config.last;
+  }
+  if (value == null) {
+    return RuleConfig(severity: severity, condition: condition);
+  }
+  if (value is num) {
+    return LengthRuleConfig(
+      severity: severity,
+      condition: condition,
+      length: value,
+    );
+  }
+  if (value is String) {
+    if (value.endsWith('-case')) {
+      return CaseRuleConfig(
+        severity: severity,
+        condition: condition,
+        type: _extractCase(value),
+      );
+    } else {
+      return ValueRuleConfig(
+        severity: severity,
+        condition: condition,
+        value: value,
+      );
+    }
+  }
+  if (value is List) {
+    return EnumRuleConfig(
+      severity: severity,
+      condition: condition,
+      allowed: value.cast(),
+    );
+  }
+  return ValueRuleConfig(
+    severity: severity,
+    condition: condition,
+    value: value,
+  );
+}
 
-  /// The cwd to use when loading config from file parameter.
-  final String cwd;
+RuleConfigSeverity _extractRuleConfigSeverity(int severity) {
+  if (severity < 0 || severity > RuleConfigSeverity.values.length - 1) {
+    throw Exception(
+        'rule severity can only be 0..${RuleConfigSeverity.values.length - 1}');
+  }
+  return RuleConfigSeverity.values[severity];
+}
 
-  LoadOptions({
-    required this.cwd,
-    this.file,
-  });
+RuleConfigCondition _extractRuleConfigCondition(String condition) {
+  var allowed = RuleConfigCondition.values.map((e) => e.name).toList();
+  final index = allowed.indexOf(condition);
+  if (index == -1) {
+    throw Exception('rule condition can only one of $allowed');
+  }
+  return RuleConfigCondition.values[index];
+}
+
+Case _extractCase(String name) {
+  var allowed = Case.values.map((e) => e.caseName).toList();
+  final index = allowed.indexOf(name);
+  if (index == -1) {
+    throw Exception('rule case can only one of $allowed');
+  }
+  return Case.values[index];
 }
