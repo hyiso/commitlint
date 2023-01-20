@@ -1,5 +1,5 @@
-import 'package:conventional_commit/conventional_commit.dart';
 import 'case.dart';
+import 'parse.dart';
 
 /// 0 disables the rule. For 1 it will be considered a warning for 2 an error
 enum RuleConfigSeverity {
@@ -30,7 +30,7 @@ class RuleOutcome {
   RuleOutcome({required this.valid, required this.message});
 }
 
-typedef Rule = RuleOutcome Function(ConventionalCommit, RuleConfig config);
+typedef Rule = RuleOutcome Function(Commit, RuleConfig config);
 
 class ValueRuleConfig extends RuleConfig {
   final String value;
