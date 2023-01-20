@@ -1,3 +1,9 @@
+## 0.2.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: change dependency from conventional_commit to commitlint_parse. ([66f40000](https://github.com/hyiso/commitlint/commit/66f40000c33749b5e9e8d5d01b47c643d878c8c9))
+
 ## 0.1.0
 
 - Initial version.

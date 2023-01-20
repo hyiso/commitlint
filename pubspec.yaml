@@ -10,6 +10,7 @@ dev_dependencies:
   commitlint_format: ^0.1.0
   commitlint_lint: ^0.1.0
   commitlint_load: ^0.1.0
+  commitlint_parse: ^0.1.0
   commitlint_read: ^0.1.0
   commitlint_rules: ^0.1.0
   commitlint_types: ^0.1.0
@@ -28,6 +29,8 @@ dependency_overrides:
     path: ./packages/commitlint_lint
   commitlint_load:
     path: ./packages/commitlint_load
+  commitlint_parse:
+    path: ./packages/commitlint_parse
   commitlint_read:
     path: ./packages/commitlint_read
   commitlint_rules:

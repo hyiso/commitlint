@@ -1,3 +1,7 @@
+## 0.2.1
+
+ - **FEAT**: add documentation link. ([305bb990](https://github.com/hyiso/commitlint/commit/305bb990f0e1f70e6f0ca7266231603a28c84820))
+
 ## 0.2.0
 
 > Note: This release has breaking changes.

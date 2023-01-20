@@ -3,6 +3,66 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-01-20
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - [`commitlint_lint` - `v0.2.0`](#commitlint_lint---v020)
+ - [`commitlint_parse` - `v0.1.0`](#commitlint_parse---v010)
+ - [`commitlint_rules` - `v0.2.0`](#commitlint_rules---v020)
+ - [`commitlint_types` - `v0.2.0`](#commitlint_types---v020)
+
+Packages with other changes:
+
+ - [`commitlint_cli` - `v0.2.1`](#commitlint_cli---v021)
+ - [`commitlint_config` - `v0.1.1`](#commitlint_config---v011)
+ - [`commitlint_format` - `v0.1.1`](#commitlint_format---v011)
+ - [`commitlint_load` - `v0.1.1`](#commitlint_load---v011)
+ - [`commitlint_read` - `v0.2.1`](#commitlint_read---v021)
+
+---
+
+#### `commitlint_lint` - `v0.2.0`
+
+ - **BREAKING** **FEAT**: change dependency from conventional_commit to commitlint_parse. ([eb39d61a](https://github.com/hyiso/commitlint/commit/eb39d61af540d67d6a249154ee6d5c1f8c1831b2))
+
+#### `commitlint_parse` - `v0.1.0`
+
+ - **BREAKING** **FEAT**: add package commitlint_parse. ([7969732f](https://github.com/hyiso/commitlint/commit/7969732f2fda5b55fc604d995a57a83f029032e8))
+
+#### `commitlint_rules` - `v0.2.0`
+
+ - **BREAKING** **FEAT**: change dependency from conventional_commit to commitlint_parse. ([66f40000](https://github.com/hyiso/commitlint/commit/66f40000c33749b5e9e8d5d01b47c643d878c8c9))
+
+#### `commitlint_types` - `v0.2.0`
+
+ - **BREAKING** **FEAT**: change conventional_commit to internal commit. ([12af3b1a](https://github.com/hyiso/commitlint/commit/12af3b1acf7626fd0b9a2e1ebeeac9946951e51e))
+
+#### `commitlint_cli` - `v0.2.1`
+
+ - **FEAT**: add documentation link. ([305bb990](https://github.com/hyiso/commitlint/commit/305bb990f0e1f70e6f0ca7266231603a28c84820))
+
+#### `commitlint_config` - `v0.1.1`
+
+ - **FEAT**: add documentation link. ([f95daef4](https://github.com/hyiso/commitlint/commit/f95daef42cf69e0d1b612e57d7ad18baa4bfef6d))
+
+#### `commitlint_format` - `v0.1.1`
+
+ - **FEAT**: add documentation link. ([216a68ba](https://github.com/hyiso/commitlint/commit/216a68ba5e90c5afb8249c25cc8fc5f29690ed4c))
+
+#### `commitlint_load` - `v0.1.1`
+
+ - **FEAT**: add documentation link. ([6f189096](https://github.com/hyiso/commitlint/commit/6f189096fb67cdc003761bfcc1e52c278c8fd4f0))
+
+#### `commitlint_read` - `v0.2.1`
+
+ - **FEAT**: add documentation link. ([61a80b2e](https://github.com/hyiso/commitlint/commit/61a80b2e0d0bc89e9ee7061b06cd65c5edd8c390))
+
+
 ## 2023-01-18
 
 ### Changes
