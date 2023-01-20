@@ -6,7 +6,8 @@ commitlint cli lint commit messages to satisfy [conventional commit format](http
 
 With [husky](https://pub.dev/packages/husky) (a tool for managing git hooks), commitlint cli can be used as commmit-msg git hook
 
-# Install
+
+# Usage
 
 Add `commitlint_cli` and [husky](https://pub.dev/packages/husky) to your `dev_dependencies` in pubspec.yaml
 
@@ -16,7 +17,7 @@ dev_dependencies:
   husky: latest
 ```
 
-# Usage
+Get dependencies and install husky
 
 ```sh
 dart pub get
@@ -34,7 +35,7 @@ Make a commit:
 ```sh
 git add .
 git commit -m "Keep calm and commit"
-# `ddart run commitlint_cli --edit "$1"` will run
+# `dart run commitlint_cli --edit "$1"` will run
 ```
 
 # Documentation
