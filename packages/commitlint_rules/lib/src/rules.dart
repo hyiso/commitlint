@@ -1,5 +1,4 @@
 import 'package:commitlint_types/commitlint_types.dart';
-import 'package:conventional_commit/conventional_commit.dart';
 
 import 'ensure.dart';
 
@@ -11,26 +10,26 @@ enum CommitComponent {
   footer,
 }
 
-extension PartialConventionalCommit on ConventionalCommit {
+extension PartialCommit on Commit {
   T? componentRaw<T>(CommitComponent component) {
     switch (component) {
       case CommitComponent.type:
         return type as T?;
       case CommitComponent.scope:
-        return scopes as T?;
+        return scope as T?;
       case CommitComponent.header:
         return header as T?;
       case CommitComponent.body:
         return body as T?;
       case CommitComponent.footer:
-        return footers as T?;
+        return footer as T?;
     }
   }
 }
 
 /// Build full stop rule for commit component.
 Rule fullStopRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! ValueRuleConfig) {
       throw Exception('$config is not ValueRuleConfig<String>');
     }
@@ -50,7 +49,7 @@ Rule fullStopRule(CommitComponent component) {
 
 /// Build leanding blank rule for commit component.
 Rule leadingBlankRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureLeadingBlank(raw);
     final negated = config.condition == RuleConfigCondition.never;
@@ -67,7 +66,7 @@ Rule leadingBlankRule(CommitComponent component) {
 
 /// Build leanding blank rule for commit component.
 Rule emptyRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     final raw = commit.componentRaw(component);
     final result = ensureEmpty(raw);
     final negated = config.condition == RuleConfigCondition.never;
@@ -81,7 +80,7 @@ Rule emptyRule(CommitComponent component) {
 
 /// Build case rule for commit component.
 Rule caseRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! CaseRuleConfig) {
       throw Exception('$config is not CaseRuleConfig');
     }
@@ -101,7 +100,7 @@ Rule caseRule(CommitComponent component) {
 
 /// Build max length rule for commit component.
 Rule maxLengthRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! LengthRuleConfig) {
       throw Exception('$config is not LengthRuleConfig');
     }
@@ -121,7 +120,7 @@ Rule maxLengthRule(CommitComponent component) {
 
 /// Build max line length rule for commit component.
 Rule maxLineLengthRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! LengthRuleConfig) {
       throw Exception('$config is not LengthRuleConfig');
     }
@@ -141,7 +140,7 @@ Rule maxLineLengthRule(CommitComponent component) {
 
 /// Build min length rule for commit component.
 Rule minLengthRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! LengthRuleConfig) {
       throw Exception('$config is not LengthRuleConfig');
     }
@@ -160,7 +159,7 @@ Rule minLengthRule(CommitComponent component) {
 }
 
 Rule enumRule(CommitComponent component) {
-  return (ConventionalCommit commit, RuleConfig config) {
+  return (Commit commit, RuleConfig config) {
     if (config is! EnumRuleConfig) {
       throw Exception('$config is not EnumRuleConfig');
     }
