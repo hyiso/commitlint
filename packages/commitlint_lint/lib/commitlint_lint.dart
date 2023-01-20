@@ -3,27 +3,17 @@
 /// More dartdocs go here.
 library commitlint_lint;
 
+import 'package:commitlint_parse/commitlint_parse.dart';
 import 'package:commitlint_rules/commitlint_rules.dart';
 import 'package:commitlint_types/commitlint_types.dart';
-import 'package:conventional_commit/conventional_commit.dart';
 
 Future<LintOutcome> lint(
     String message, Map<String, RuleConfig> rulesConfig) async {
-  final commit = ConventionalCommit.tryParse(message);
-  if (commit == null) {
-    return LintOutcome(input: message, valid: false, errors: [
-      LintRuleOutcome(
-        level: RuleConfigSeverity.error,
-        valid: false,
-        name: 'message-format',
-        message: [
-          'Commit message does not meet the conventional commit format.',
-          '   - See format guide: https://www.conventionalcommits.org',
-        ].join('\n'),
-      ),
-    ], warnings: []);
-  }
-  if (commit.isMergeCommit) {
+  // Parse the commit message
+  final commit = message.isEmpty ? Commit.empty() : parse(message);
+
+  if (commit.header.isEmpty && commit.body == null && commit.footer == null) {
+    // Commit is empty, skip
     return LintOutcome(input: message, valid: true, errors: [], warnings: []);
   }
   final allRules = Map.of(supportedRules);

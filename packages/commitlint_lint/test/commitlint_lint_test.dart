@@ -3,17 +3,17 @@ import 'package:commitlint_types/commitlint_types.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('negative on empty message', () async {
+  test('positive on empty message', () async {
     final result = await lint('', {});
-    expect(result.valid, false);
+    expect(result.valid, true);
     expect(result.input, equals(''));
-    expect(result.errors.isEmpty, false);
+    expect(result.errors.isEmpty, true);
     expect(result.warnings.isEmpty, true);
   });
 
   test('positive on stub message and no rule', () async {
-    final result = await lint('', {});
-    expect(result.valid, false);
+    final result = await lint('foo: bar', {});
+    expect(result.valid, true);
   });
 
   test('positive on stub message and adhered rule', () async {
