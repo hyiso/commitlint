@@ -12,8 +12,9 @@ Usage: commitlint [arguments]
 Global options:
 -h, --help       Print this usage information.
     --config     path to the config file
+                 (defaults to "commitlint.yaml")
     --edit       read last commit message from the specified file.
-    --from       lower end of the commit range to lint. This is preceded to --edit
-    --to         upper end of the commit range to lint. This is preceded to --edit
+    --from       lower end of the commit range to lint. This is succeeded to --edit
+    --to         upper end of the commit range to lint. This is succeeded to --edit
     --version    display version information
 ```

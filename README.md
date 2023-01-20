@@ -9,7 +9,7 @@ commitlint helps your team adhere to a commit convention. By supporting pub-inst
 ### Install
 
 ```bash
-# Install and configure if needed
+# Install commitlint cli and upstream configure if needed
 dart pub add --dev commitlint_cli commitlint_config
 ```
 
@@ -24,12 +24,11 @@ echo "include: package:commitlint_config/commitlint.yaml" > commitlint.yaml
 
 ```bash
 # Lint from stdin
-echo 'foo: bar' | commitlint --input
-⧗   input: foo: bar
-✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]
+echo 'foo: bar' | dart run commitlint_cli
+⧗  input: type: add docs
+✖  type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] type-enum
 
-✖   found 1 problems, 0 warnings
-ⓘ   Get help: http://hyiso.github.io/commitlint/#/concepts-convensional-commits
+✖  found 1 errors, 0 warnings
 ```
 
 ```bash
@@ -37,7 +36,7 @@ echo 'foo: bar' | commitlint --input
 commitlint --from=HEAD~1
 ```
 
-?> To get the most out of `commitlint` you'll want to automate it in your project lifecycle. See our [Setup guide](./guides-setup.md) for next steps.
+?> To get the most out of `commitlint` you'll want to automate it in your project lifecycle. See our [Setup guide](https://hyiso.github.io/commitlint/#/guides-setup) for next steps.
 
 ## Documentation
 
