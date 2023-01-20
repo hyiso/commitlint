@@ -1,0 +1,18 @@
+name: commitlint_parse
+description:
+  Commitlint is a tool for lint commit messages.
+  This package is for parse commit message to convensional commit.
+version: 0.0.0
+homepage: https://github.com/hyiso/commitlint
+repository: https://github.com/hyiso/commitlint/packages/commitlint_parse
+documentation: https://hyiso.github.io/commitlint
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  commitlint_types: ^0.1.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.16.0
