@@ -2,7 +2,7 @@ name: commitlint_rules
 description:
   Commitlint is a tool for lint commit messages.
   This is the rules package for commitlint cli package.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/hyiso/commitlint
 repository: https://github.com/hyiso/commitlint/packages/commitlint_rules
 documentation: https://hyiso.github.io/commitlint

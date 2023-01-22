@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-01-22
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`commitlint_rules` - `v0.2.1`](#commitlint_rules---v021)
+ - [`commitlint_lint` - `v0.2.0+1`](#commitlint_lint---v0201)
+ - [`commitlint_cli` - `v0.2.1+1`](#commitlint_cli---v0211)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `commitlint_lint` - `v0.2.0+1`
+ - `commitlint_cli` - `v0.2.1+1`
+
+---
+
+#### `commitlint_rules` - `v0.2.1`
+
+ - **FEAT**: add subject related rules. ([b0dc9bda](https://github.com/hyiso/commitlint/commit/b0dc9bdac45cf09e975588854e8394be0ffa988c))
+
+
 ## 2023-01-20
 
 ### Changes
