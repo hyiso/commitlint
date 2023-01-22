@@ -293,3 +293,61 @@ Infinity
 ```
 0
 ```
+
+#### subject-full-stop
+
+- **condition**: `subject` ends with `value`
+- **rule**: `never`
+- **value**
+
+```
+'.'
+```
+
+#### subject-case
+
+- **condition**: `subject` is in case `value`
+- **rule**: `always`
+- **value**
+
+```
+'lower-case'
+```
+
+- **possible values**
+
+```yaml
+- lower-case    # default
+- upper-case    # UPPERCASE
+- camel-case    # camelCase
+- kebab-case    # kebab-case
+- pascal-case   # PascalCase
+- sentence-case # Sentence case
+- snake-case    # snake_case
+- start-case    # Start Case
+```
+
+#### subject-empty
+
+- **condition**: `subject` is empty
+- **rule**: `never`
+
+#### subject-max-length
+
+- **condition**: `subject` has `value` or less characters
+- **rule**: `always`
+- **value**
+
+```
+Infinity
+```
+
+#### subject-min-length
+
+- **condition**: `subject` has `value` or more characters
+- **rule**: `always`
+- **value**
+
+```
+0
+```

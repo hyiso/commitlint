@@ -5,6 +5,7 @@ import 'ensure.dart';
 enum CommitComponent {
   type,
   scope,
+  subject,
   header,
   body,
   footer,
@@ -17,6 +18,8 @@ extension PartialCommit on Commit {
         return type as T?;
       case CommitComponent.scope:
         return scope as T?;
+      case CommitComponent.subject:
+        return subject as T?;
       case CommitComponent.header:
         return header as T?;
       case CommitComponent.body:
