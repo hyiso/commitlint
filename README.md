@@ -38,6 +38,19 @@ commitlint --from=HEAD~1
 
 ?> To get the most out of `commitlint` you'll want to automate it in your project lifecycle. See our [Setup guide](https://hyiso.github.io/commitlint/#/guides-setup) for next steps.
 
+## Packages
+
+| Project               | Status                                                       |
+| --------------------- | ------------------------------------------------------------ |
+| [commitlint_cli](./packages/commitlint_cli/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_cli?color=blue)](https://pub.dev/packages/commitlint_cli)                  |
+| [commitlint_config](./packages/commitlint_config/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_config?color=blue)](https://pub.dev/packages/commitlint_config)                  |
+| [commitlint_format](./packages/commitlint_format/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_format?color=blue)](https://pub.dev/packages/commitlint_format)                  |
+| [commitlint_lint](./packages/commitlint_lint/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_lint?color=blue)](https://pub.dev/packages/commitlint_lint)                  |
+| [commitlint_load](./packages/commitlint_parse/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_load?color=blue)](https://pub.dev/packages/commitlint_load)                  |
+| [commitlint_read](./packages/commitlint_read/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_read?color=blue)](https://pub.dev/packages/commitlint_read)                  |
+| [commitlint_rules](./packages/commitlint_rules/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_rules?color=blue)](https://pub.dev/packages/commitlint_rules)                  |
+| [commitlint_types](./packages/commitlint_types/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_types?color=blue)](https://pub.dev/packages/commitlint_types)                  |
+
 ## Documentation
 
 See [documention](https://hyiso.github.io/commitlint)
