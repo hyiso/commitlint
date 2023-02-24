@@ -28,7 +28,7 @@ void main() {
   test('include package should work', () async {
     final rules = await load(file: 'test/include-package.yaml');
     expect(rules.isEmpty, false);
-    expect(rules.keys.length, equals(2));
+    expect(rules.keys.length, equals(3));
     expect(rules['type-case'], isA<CaseRuleConfig>());
     expect(rules['type-enum'], isA<EnumRuleConfig>());
     expect((rules['type-case'] as CaseRuleConfig).type, Case.upper);
