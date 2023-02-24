@@ -4,6 +4,8 @@ repository: https://github.com/hyiso/commitlint
 command:
   bootstrap:
     usePubspecOverrides: true
+    hooks:
+      post: dart run husky install
   version:
     # Generate commit links in package changelogs.
     linkToCommits: true
@@ -12,9 +14,12 @@ command:
     branch: main
     # Additionally build a changelog at the root of the workspace.
     workspaceChangelog: true
+    hooks:
+      preCommit: dart scripts/generate_version.dart && git add packages/commitlint_cli/lib/src/version.g.dart
 
 packages:
-  - packages/**
+  - .
+  - packages/*
 
 scripts:
 
@@ -29,10 +34,9 @@ scripts:
     exec:
       concurrency: 1
     description: Run `Dart test` for specific packages in this project.
-    select-package:
+    packageFilters:
       flutter: false
-      dir-exists: 
-        - 'test/'
+      dirExists: test
     # This tells Melos tests to ignore env variables passed to tests from `melos run test`
     # as they could change the behaviour of how tests filter packages.
     env:
@@ -43,6 +47,3 @@ scripts:
   format-check:
     exec: dart format . --output=none --set-exit-if-changed
     description: Run `dart format` checks for all packages.
-
-  version: dart scripts/generate_version.dart && git add packages/commitlint_cli/lib/src/version.g.dart
-  bootstrap: dart pub get && dart run husky install

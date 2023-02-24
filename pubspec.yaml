@@ -1,4 +1,4 @@
-name: commitlint_monorepo
+name: commitlint
 publish_to: none
 
 environment:
@@ -14,7 +14,8 @@ dev_dependencies:
   commitlint_read: ^0.1.0
   commitlint_rules: ^0.1.0
   commitlint_types: ^0.1.0
-  husky: ^0.1.1
+  husky: ^0.1.4+2
+  melos: ^3.0.0-dev.0
   path: ^1.8.0
   yaml: ^3.1.0
 

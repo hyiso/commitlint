@@ -1,6 +1,6 @@
 ## commitlint
 
-> Dart version commitlint - A tool to lint commit messages.
+> Dart version commitlint - A tool to lint commit messages. (Inspired by JavaScript [commitlint](https://github.com/conventional-changelog/commitlint))
 
 ## Getting started
 
@@ -40,16 +40,16 @@ commitlint --from=HEAD~1
 
 ## Packages
 
-| Project               | Status                                                       |
-| --------------------- | ------------------------------------------------------------ |
-| [commitlint_cli](./packages/commitlint_cli/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_cli?color=blue)](https://pub.dev/packages/commitlint_cli)                  |
-| [commitlint_config](./packages/commitlint_config/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_config?color=blue)](https://pub.dev/packages/commitlint_config)                  |
-| [commitlint_format](./packages/commitlint_format/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_format?color=blue)](https://pub.dev/packages/commitlint_format)                  |
-| [commitlint_lint](./packages/commitlint_lint/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_lint?color=blue)](https://pub.dev/packages/commitlint_lint)                  |
-| [commitlint_load](./packages/commitlint_parse/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_load?color=blue)](https://pub.dev/packages/commitlint_load)                  |
-| [commitlint_read](./packages/commitlint_read/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_read?color=blue)](https://pub.dev/packages/commitlint_read)                  |
-| [commitlint_rules](./packages/commitlint_rules/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_rules?color=blue)](https://pub.dev/packages/commitlint_rules)                  |
-| [commitlint_types](./packages/commitlint_types/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_types?color=blue)](https://pub.dev/packages/commitlint_types)                  |
+| Project               | Status                                                       | Description                                                       |
+| --------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------- |
+| [commitlint_cli](./packages/commitlint_cli/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_cli?color=blue)](https://pub.dev/packages/commitlint_cli)                  | commitlint command-line tool entry |
+| [commitlint_config](./packages/commitlint_config/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_config?color=blue)](https://pub.dev/packages/commitlint_config)                  | commitlint rules configuration, can be included. |
+| [commitlint_format](./packages/commitlint_format/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_format?color=blue)](https://pub.dev/packages/commitlint_format)                  | commitlint output formatting package. |
+| [commitlint_lint](./packages/commitlint_lint/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_lint?color=blue)](https://pub.dev/packages/commitlint_lint)                  | commitlint linting package |
+| [commitlint_load](./packages/commitlint_parse/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_load?color=blue)](https://pub.dev/packages/commitlint_load)                  | load configured rules for commitlint |
+| [commitlint_read](./packages/commitlint_read/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_read?color=blue)](https://pub.dev/packages/commitlint_read)                  | read commit message for commitlint. |
+| [commitlint_rules](./packages/commitlint_rules/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_rules?color=blue)](https://pub.dev/packages/commitlint_rules)                  | rules set of commitlint. |
+| [commitlint_types](./packages/commitlint_types/)      | [![Pub Version](https://img.shields.io/pub/v/commitlint_types?color=blue)](https://pub.dev/packages/commitlint_types)                  | types package for commitlint. |
 
 ## Documentation
 

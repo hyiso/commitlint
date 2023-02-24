@@ -22,7 +22,7 @@ jobs:
       - run: dart --version
 
       - name: Install melos
-        run: dart pub global activate melos
+        run: dart pub global activate melos 3.0.0-dev.0
 
       - name: Add pub cache bin to PATH
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
