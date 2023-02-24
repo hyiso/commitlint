@@ -6,7 +6,7 @@ environment:
 
 dev_dependencies:
   commitlint_cli: ^0.1.0
-  commitlint_config: ^0.1.0
+  commitlint_config: ^0.1.2
   commitlint_format: ^0.1.0
   commitlint_lint: ^0.1.0
   commitlint_load: ^0.1.0

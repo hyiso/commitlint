@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-02-24
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`commitlint_config` - `v0.1.2`](#commitlint_config---v012)
+
+---
+
+#### `commitlint_config` - `v0.1.2`
+
+ - **FEAT**(config): add type-case and type-empty. ([8d035b02](https://github.com/hyiso/commitlint/commit/8d035b02f3190f501dc54b547cea31786b099abc))
+
+
 ## 2023-01-22
 
 ### Changes
