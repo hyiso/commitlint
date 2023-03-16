@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-melos analyze
-melos format-check
-melos test  --no-select

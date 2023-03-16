@@ -21,25 +21,14 @@ jobs:
 
       - run: dart --version
 
-      - name: Install melos
-        run: dart pub global activate melos 3.0.0-dev.0
+      - name: Get Dependencies
+        run: dart pub get
 
-      - name: Add pub cache bin to PATH
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
-
-      - name: Bootstrap
-        run: melos bootstrap
-
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      - name: Check Format
-        run: melos format-check
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze
-        run: melos analyze
+        run: dart analyze . --fatal-infos
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
+      - name: Check Format
+        run: dart format . --output=none --set-exit-if-changed
+
       - name: Run tests
-        run: melos test --no-select
+        run: dart test --reporter expanded

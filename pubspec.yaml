@@ -1,40 +1,24 @@
-name: commitlint
-publish_to: none
+name: commitlint_cli
+description: Commitlint lint commit messages to satisfy conventional commit format
+version: 0.3.0-dev.0
+homepage: https://github.com/hyiso/commitlint
+repository: https://github.com/hyiso/commitlint
+documentation: https://hyiso.github.io/commitlint
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  args: ^2.3.1
+  change_case: ^1.0.0+3
+  colorize: ^3.0.0
+  path: ^1.8.0
+  meta: ^1.8.0
+  yaml: ^3.1.1
+  collection: ^1.17.0
 
 dev_dependencies:
-  commitlint_cli: ^0.1.0
-  commitlint_config: ^0.1.2
-  commitlint_format: ^0.1.0
-  commitlint_lint: ^0.1.0
-  commitlint_load: ^0.1.0
-  commitlint_parse: ^0.1.0
-  commitlint_read: ^0.1.0
-  commitlint_rules: ^0.1.0
-  commitlint_types: ^0.1.0
   husky: ^0.1.4+2
-  melos: ^3.0.0-dev.0
-  path: ^1.8.0
-  yaml: ^3.1.0
-
-dependency_overrides:
-  commitlint_cli:
-    path: ./packages/commitlint_cli
-  commitlint_config:
-    path: ./packages/commitlint_config
-  commitlint_format:
-    path: ./packages/commitlint_format
-  commitlint_lint:
-    path: ./packages/commitlint_lint
-  commitlint_load:
-    path: ./packages/commitlint_load
-  commitlint_parse:
-    path: ./packages/commitlint_parse
-  commitlint_read:
-    path: ./packages/commitlint_read
-  commitlint_rules:
-    path: ./packages/commitlint_rules
-  commitlint_types:
-    path: ./packages/commitlint_types
+  lints: ^2.0.0
+  test: ^1.21.0
+  uuid: ^3.0.7

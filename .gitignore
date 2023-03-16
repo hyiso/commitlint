@@ -1,6 +1,5 @@
 /**/pubspec.lock
 .idea/
 *.iml
-pubspec_overrides.yaml
 .dart_tool/
 .DS_Store

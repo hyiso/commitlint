@@ -1,15 +1,8 @@
-include: ./packages/commitlint_config/lib/commitlint.yaml
+include: ./lib/commitlint.yaml
 
 rules:
   scope-enum:
     - 2
     - always
-    - - cli
-      - config
-      - format
-      - lint
-      - load
-      - read
+    - - deps
       - release
-      - rules
-      - types
