@@ -1,4 +1,4 @@
-part of '../types.dart';
+import 'rule.dart';
 
 class LintOutcome {
   /// The linted commit, as string

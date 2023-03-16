@@ -1,4 +1,6 @@
-part of '../rules.dart';
+import 'package:change_case/change_case.dart';
+
+import 'types/case.dart';
 
 bool ensureCase(String raw, Case target) {
   switch (target) {

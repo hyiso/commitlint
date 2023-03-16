@@ -1,6 +1,8 @@
 import 'parse.dart';
 import 'rules.dart';
-import 'types.dart';
+import 'types/commit.dart';
+import 'types/lint.dart';
+import 'types/rule.dart';
 
 ///
 /// Lint commit [message] with configured [rules]

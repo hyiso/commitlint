@@ -1,4 +1,4 @@
-part of '../types.dart';
+import 'lint.dart';
 
 class FormattableReport {
   final bool valid;

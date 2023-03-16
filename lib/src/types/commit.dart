@@ -1,5 +1,3 @@
-part of '../types.dart';
-
 /// The Commit Class
 class Commit {
   final String header;
@@ -40,6 +38,32 @@ class Commit {
         references = [],
         revert = null,
         merge = null;
+
+  T? componentRaw<T>(CommitComponent component) {
+    switch (component) {
+      case CommitComponent.type:
+        return type as T?;
+      case CommitComponent.scope:
+        return scope as T?;
+      case CommitComponent.subject:
+        return subject as T?;
+      case CommitComponent.header:
+        return header as T?;
+      case CommitComponent.body:
+        return body as T?;
+      case CommitComponent.footer:
+        return footer as T?;
+    }
+  }
+}
+
+enum CommitComponent {
+  type,
+  scope,
+  subject,
+  header,
+  body,
+  footer,
 }
 
 /// Commit Note

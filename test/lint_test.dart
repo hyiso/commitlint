@@ -1,5 +1,5 @@
 import 'package:commitlint_cli/src/lint.dart';
-import 'package:commitlint_cli/src/types.dart';
+import 'package:commitlint_cli/src/types/rule.dart';
 import 'package:test/test.dart';
 
 void main() {

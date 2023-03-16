@@ -4,7 +4,8 @@ import 'dart:isolate';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
-import 'types.dart';
+import 'types/case.dart';
+import 'types/rule.dart';
 
 ///
 /// Load configured rules in given [file] from given [dir].

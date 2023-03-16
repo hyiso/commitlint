@@ -1,4 +1,4 @@
-import 'types.dart';
+import 'types/commit.dart';
 
 ///
 /// Parse Commit Message String to Convensional Commit

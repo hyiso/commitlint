@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:colorize/colorize.dart';
-import 'types.dart';
+import 'types/format.dart';
+import 'types/lint.dart';
 
 const _kDefaultSigns = [' ', '⚠', '✖'];
 final _defaultColors = [Styles.WHITE, Styles.YELLOW, Styles.RED];

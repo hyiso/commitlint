@@ -1,5 +1,3 @@
-part of '../types.dart';
-
 /// 'lower-case'    // default
 /// 'upper-case'    // UPPERCASE
 /// 'camel-case'    // camelCase

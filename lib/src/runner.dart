@@ -7,7 +7,9 @@ import 'format.dart';
 import 'lint.dart';
 import 'load.dart';
 import 'read.dart';
-import 'types.dart';
+import 'types/format.dart';
+import 'types/lint.dart';
+import 'types/rule.dart';
 import 'version.g.dart';
 
 class CommitLintRunner extends CommandRunner {
