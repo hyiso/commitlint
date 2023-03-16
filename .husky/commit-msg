@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-dart bin/commitlint_cli.dart --edit "$1" --config lib/commitlint.yaml
+DEBUG=true dart bin/commitlint_cli.dart --edit "$1"

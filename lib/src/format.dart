@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:colorize/colorize.dart';
 import 'types.dart';
 
 const _kDefaultSigns = [' ', '⚠', '✖'];
 final _defaultColors = [Styles.WHITE, Styles.YELLOW, Styles.RED];
+final isDebug = Platform.environment['DEBUG'] == 'true';
 
 ///
 /// Format commitlint [report] to formatted output message.
@@ -11,7 +14,6 @@ String format({
   required FormattableReport report,
 }) {
   return report.results
-      .where((result) => result.errors.isNotEmpty || result.warnings.isNotEmpty)
       .map((result) => [..._formatInput(result), ..._formatResult(result)])
       .fold<Iterable<String>>(
           <String>[],
@@ -26,7 +28,7 @@ List<String> _formatInput(LintOutcome result) {
       result.errors.isNotEmpty ? result.input : result.input.split('\n').first;
   final decoratedInput = Colorize(commitText).bold();
   final hasProblem = result.errors.isNotEmpty || result.warnings.isNotEmpty;
-  return hasProblem ? ['$decoration  input: $decoratedInput'] : [];
+  return hasProblem || isDebug ? ['$decoration  input: $decoratedInput'] : [];
 }
 
 List<String> _formatResult(LintOutcome result) {
@@ -41,8 +43,8 @@ List<String> _formatResult(LintOutcome result) {
   final sign = _selectSign(result);
   final color = _selectColor(result);
   final decoration = Colorize().apply(color, sign);
-  final summary = problems.isNotEmpty
-      ? '$decoration  found ${result.errors.length} errors, ${result.warnings.length} warnings'
+  final summary = problems.isNotEmpty || isDebug
+      ? '$decoration  found ${result.errors.length} error(s), ${result.warnings.length} warning(s)'
       : '';
   final fmtSummary = summary.isNotEmpty ? Colorize(summary).bold() : summary;
   return [

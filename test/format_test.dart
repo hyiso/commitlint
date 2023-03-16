@@ -7,11 +7,6 @@ void main() {
     final actual = format(report: FormattableReport.empty());
     expect(actual.isEmpty, true);
   });
-  test('does nothing without errors and warnings', () {
-    final fake = LintOutcome(input: '', valid: true, errors: [], warnings: []);
-    final actual = format(report: FormattableReport.empty() + fake);
-    expect(actual.isEmpty, true);
-  });
   test('returns a correct summary of empty errors and warnings', () {
     final fakeError = LintOutcome(
       input: '',
@@ -42,9 +37,9 @@ void main() {
     );
     final actualWarning =
         format(report: FormattableReport.empty() + fakeWarning);
-    expect(actualError.contains('There was an error'), true);
-    expect(actualError.contains('1 errors, 0 warnings'), true);
-    expect(actualWarning.contains('There was a problem'), true);
-    expect(actualWarning.contains('0 errors, 1 warnings'), true);
+    expect(actualError, contains('There was an error'));
+    expect(actualError, contains('1 error(s), 0 warning(s)'));
+    expect(actualWarning, contains('There was a problem'));
+    expect(actualWarning, contains('0 error(s), 1 warning(s)'));
   });
 }

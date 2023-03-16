@@ -81,7 +81,7 @@ class CommitLintRunner extends CommandRunner {
       (info, result) => info + result,
     );
     final output = format(report: report);
-    stderr.write(output);
+    stderr.writeln(output);
     if (!report.valid) {
       exit(1);
     }
