@@ -12,5 +12,6 @@ jobs:
 
       - name: Get Dependencies
         run: dart pub get
+
       - name: Validate Title of PR
-        run: echo ${{ github.event.pull_request.title }} | dart bin/commitlint.dart
+        run: echo ${{ github.event.pull_request.title }} | dart bin/commitlint_cli.dart

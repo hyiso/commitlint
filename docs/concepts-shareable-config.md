@@ -5,16 +5,12 @@ Most commonly shareable configuration is delivered as pub package exporting one 
 
 ```yaml
 # commitlint.yaml
-include: package:commitlint_config/commitlint.yaml
+include: package:commitlint_cli/commitlint.yaml
 ```
 
-This causes `commitlint` to pick up `commitlint_config/commitlint.yaml`. Make it available by installing it.
+This causes `commitlint` to pick up `commitlint_cli/commitlint.yaml`.
 
-```bash
-dart pub add --dev commitlint_config
-```
-
-The rules found in `commitlint_config/commitlint.yaml` are merged with the rules in `commitlint.yaml`, if any.
+The rules found in `commitlint_cli/commitlint.yaml` are merged with the rules in `commitlint.yaml`, if any.
 
 This works recursively, enabling shareable configuration to extend on an indefinite chain of other shareable configurations.
 

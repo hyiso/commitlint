@@ -6,15 +6,14 @@ This guide demonstrates how to achieve this via git hooks.
 
 ## Install commitlint
 
-Install `commitlint_cli` and a `commitlint_config` of your choice as dev dependency and
-configure `commitlint` to use it.
+Install `commitlint_cli` as dev dependency and configure `commitlint` to use it.
 
 ```bash
 # Install and configure if needed
-dart pub add --dev commitlint_cli commitlint_config
+dart pub add --dev commitlint_cli
 
-# Configure commitlint to use conventional config
-echo "include: package:commitlint_config/commitlint.yaml" > commitlint.yaml
+# Configure commitlint to use conventional cli config
+echo "include: package:commitlint_cli/commitlint.yaml" > commitlint.yaml
 ```
 
 ## Install husky
@@ -63,4 +62,25 @@ No staged files match any of provided globs.
 husky - commit-msg hook exited with code 1 (add --no-verify to bypass)
 ```
 
-?> Local linting is fine for fast feedback but can easily be tinkered with. To ensure all commits are linted you'll want to check commits on an automated CI Server too. Learn how to in the [CI Setup guide](guides-ci-setup.md).
+## Setup Github CI
+
+Add `.github/workflows/pr_title.yml`
+```yaml
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Get Dependencies
+        run: dart pub get
+
+      - name: Validate Title of PR
+        run: echo ${{ github.event.pull_request.title }} | dart run commitlint_cli
+```

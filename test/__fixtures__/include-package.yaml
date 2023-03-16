@@ -1,0 +1,7 @@
+include: package:commitlint_cli/commitlint.yaml
+
+rules:
+  type-case:
+    - 2
+    - always
+    - 'upper-case'
