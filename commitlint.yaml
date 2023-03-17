@@ -1,8 +1,0 @@
-include: ./lib/commitlint.yaml
-
-rules:
-  scope-enum:
-    - 2
-    - always
-    - - deps
-      - release

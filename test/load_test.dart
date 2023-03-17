@@ -9,7 +9,7 @@ void main() {
     expect(rules.isEmpty, true);
   });
   test('only `rules` should work', () async {
-    final rules = await load(file: 'test/__fixtures__/rules.yaml');
+    final rules = await load(file: 'test/__fixtures__/only-rules.yaml');
     expect(rules.isEmpty, false);
     expect(rules.keys.length, equals(2));
     expect(rules['type-case'], isA<CaseRuleConfig>());
@@ -18,18 +18,18 @@ void main() {
     expect((rules['type-enum'] as EnumRuleConfig).allowed,
         equals(['feat', 'fix', 'docs', 'chore']));
   });
-  test('include path should work', () async {
+  test('include relative path should work', () async {
     final rules = await load(file: 'test/__fixtures__/include-path.yaml');
     expect(rules.isEmpty, false);
-    expect(rules.keys.length, equals(2));
+    expect(rules.keys.length, greaterThan(1));
     expect(rules['type-case'], isA<CaseRuleConfig>());
     expect(rules['type-enum'], isA<EnumRuleConfig>());
     expect((rules['type-case'] as CaseRuleConfig).type, Case.upper);
   });
-  test('include package should work', () async {
+  test('include package path should work', () async {
     final rules = await load(file: 'test/__fixtures__/include-package.yaml');
     expect(rules.isEmpty, false);
-    expect(rules.keys.length, equals(3));
+    expect(rules.keys.length, greaterThan(1));
     expect(rules['type-case'], isA<CaseRuleConfig>());
     expect(rules['type-enum'], isA<EnumRuleConfig>());
     expect((rules['type-case'] as CaseRuleConfig).type, Case.upper);

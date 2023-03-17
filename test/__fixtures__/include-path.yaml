@@ -1,4 +1,4 @@
-include: ./rules.yaml
+include: ../../lib/commitlint.yaml
 
 rules:
   type-case:

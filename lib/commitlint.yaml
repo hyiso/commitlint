@@ -20,3 +20,8 @@ rules:
       - revert
       - style
       - test
+  scope-enum:
+    - 2
+    - always
+    - - deps
+      - release
