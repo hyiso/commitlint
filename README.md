@@ -48,9 +48,8 @@ commitlint --from=HEAD~1
 ```
 ## Setup git hook
 
-With [husky](https://pub.dev/packages/husky) (a tool for managing git hooks), commitlint cli can be used as commmit-msg git hook
+With [husky](https://pub.dev/packages/husky) (a tool for managing git hooks), commitlint cli can be used in `commmit-msg` git hook
 
-and [husky](https://pub.dev/packages/husky)
 ### Set `commit-msg` hook:
 
 ```sh
