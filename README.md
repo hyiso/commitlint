@@ -12,6 +12,10 @@ commitlint lint commit messages to satisfy [conventional commit format](https://
 
 commitlint helps your team adhere to a commit convention. By supporting pub-installed configurations it makes sharing of commit conventions easy.
 
+## About Package Name
+
+Because a package `commit_lint` already exists (not in active development), the name `commitlint` can't be used according to [Pub's naming policy](https://pub.dev/policy#naming-policy). So `commitlint_cli` is used currently.
+
 
 ## Getting started
 
