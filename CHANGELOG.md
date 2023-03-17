@@ -1,3 +1,8 @@
+## 0.3.0-dev.1
+
+ - Support `DEBUG=true` env to print verbose message
+ - Some docs update
+
 ## 0.3.0-dev.0
 
 > Note: This release has breaking changes.
