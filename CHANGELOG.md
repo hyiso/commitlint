@@ -1,3 +1,7 @@
+## 0.3.0-dev.2
+
+ - fix: commitlint.yaml is ignored
+
 ## 0.3.0-dev.1
 
  - Support `DEBUG=true` env to print verbose message
