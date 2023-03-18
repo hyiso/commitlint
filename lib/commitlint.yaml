@@ -23,5 +23,6 @@ rules:
   scope-enum:
     - 2
     - always
-    - - deps
+    - - ci
+      - deps
       - release
