@@ -1,18 +1,10 @@
-## 0.3.0-dev.2
-
- - fix: commitlint.yaml is ignored
-
-## 0.3.0-dev.1
-
- - Support `DEBUG=true` env to print verbose message
- - Some docs update
-
-## 0.3.0-dev.0
+## 0.3.0
 
 > Note: This release has breaking changes.
 
  - **BREAKING** **REFACTOR**: Make all `commitlint_*` packages into one `commitlint_cli` package.
-
+ - Move `package:commitlint_config/commitlint.yaml` to `package:commitlint_cli/commitlint.yaml`.
+ - Support `DEBUG=true` env to print verbose message.
 ## 0.2.1+1
 
  - Update a dependency to the latest release.
