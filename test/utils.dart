@@ -1,18 +1,8 @@
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:uuid/uuid.dart';
 
-var uuid = Uuid();
-
-String tmp({
-  String prefix = 'tmp',
-  String? suffix,
-}) {
-  final tmp = Directory.systemTemp.path;
-  final uid = uuid.v4().replaceAll('-', '');
-  return join(tmp, prefix, uid,
-      DateTime.now().millisecondsSinceEpoch.toString(), suffix);
-}
+String tmp() => join(Directory.systemTemp.path, 'tmp',
+    'commitlint_test_${DateTime.now().millisecondsSinceEpoch}');
 
 Future<String> bootstrap([String? fixture, String? directory]) async {
   final dir = tmp();

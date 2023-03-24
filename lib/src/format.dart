@@ -1,12 +1,10 @@
-import 'dart:io';
-
-import 'package:colorize/colorize.dart';
+import 'package:ansi/ansi.dart';
+import 'package:verbose/verbose.dart';
 import 'types/format.dart';
 import 'types/lint.dart';
 
 const _kDefaultSigns = [' ', '⚠', '✖'];
-final _defaultColors = [Styles.WHITE, Styles.YELLOW, Styles.RED];
-final isDebug = Platform.environment['DEBUG'] == 'true';
+final _defaultColors = [ansi.white, ansi.yellow, ansi.red];
 
 ///
 /// Format commitlint [report] to formatted output message.
@@ -24,30 +22,32 @@ String format({
 
 List<String> _formatInput(LintOutcome result) {
   final sign = '⧗';
-  final decoration = Colorize(sign).darkGray();
+  final decoration = ansi.gray(sign);
   final commitText =
       result.errors.isNotEmpty ? result.input : result.input.split('\n').first;
-  final decoratedInput = Colorize(commitText).bold();
+  final decoratedInput = ansi.bold(commitText);
   final hasProblem = result.errors.isNotEmpty || result.warnings.isNotEmpty;
-  return hasProblem || isDebug ? ['$decoration  input: $decoratedInput'] : [];
+  return hasProblem || Verbose.enabled
+      ? ['$decoration  input: $decoratedInput']
+      : [];
 }
 
 List<String> _formatResult(LintOutcome result) {
   final problems = [...result.errors, ...result.warnings].map((problem) {
     final sign = _kDefaultSigns[problem.level.index];
     final color = _defaultColors[problem.level.index];
-    final decoration = Colorize().apply(color, sign);
-    final name = Colorize(problem.name).darkGray();
+    final decoration = color(sign);
+    final name = ansi.gray(problem.name);
     return '$decoration  ${problem.message} $name';
   });
 
   final sign = _selectSign(result);
   final color = _selectColor(result);
-  final decoration = Colorize().apply(color, sign);
-  final summary = problems.isNotEmpty || isDebug
+  final decoration = color(sign);
+  final summary = problems.isNotEmpty || Verbose.enabled
       ? '$decoration  found ${result.errors.length} error(s), ${result.warnings.length} warning(s)'
       : '';
-  final fmtSummary = summary.isNotEmpty ? Colorize(summary).bold() : summary;
+  final fmtSummary = summary.isNotEmpty ? ansi.bold(summary) : summary;
   return [
     ...problems,
     if (problems.isNotEmpty) '',
@@ -63,9 +63,9 @@ String _selectSign(LintOutcome result) {
   return result.warnings.isNotEmpty ? '⚠' : '✔';
 }
 
-Styles _selectColor(LintOutcome result) {
+String Function(String) _selectColor(LintOutcome result) {
   if (result.errors.isNotEmpty) {
-    return Styles.RED;
+    return ansi.red;
   }
-  return result.warnings.isNotEmpty ? Styles.YELLOW : Styles.GREEN;
+  return result.warnings.isNotEmpty ? ansi.yellow : ansi.green;
 }

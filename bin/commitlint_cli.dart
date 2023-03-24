@@ -1,4 +1,4 @@
-import 'package:commitlint_cli/commitlint.dart';
+import 'package:commitlint_cli/src/runner.dart';
 
 Future<void> main(List<String> args) async {
   await CommitLintRunner().run(args);

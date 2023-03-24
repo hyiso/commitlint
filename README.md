@@ -46,9 +46,13 @@ echo 'foo: bar' | dart run commitlint_cli
 ✖  found 1 errors, 0 warnings
 ```
 
+**Note: output on successful commit will be omitted, you can use the `VERBOSE=true` env to get positive output.** (Functionality of [verbose](https://pub.dev/packages/verbose))
+
 ```bash
-# Lint last commit from history
-commitlint --from=HEAD~1
+# Output on successful commit will be omitted
+echo 'feat: test message' | dart run commitlint_cli
+# Verbse Output on successful commit
+echo 'feat: test message' | VERBOSE=true dart run commitlint_cli
 ```
 ## Setup git hook
 
