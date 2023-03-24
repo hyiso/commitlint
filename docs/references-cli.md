@@ -16,5 +16,4 @@ Global options:
     --edit       read last commit message from the specified file.
     --from       lower end of the commit range to lint. This is succeeded to --edit
     --to         upper end of the commit range to lint. This is succeeded to --edit
-    --version    display version information
 ```

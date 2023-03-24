@@ -10,7 +10,6 @@ import 'read.dart';
 import 'types/format.dart';
 import 'types/lint.dart';
 import 'types/rule.dart';
-import 'version.g.dart';
 
 class CommitLintRunner extends CommandRunner {
   CommitLintRunner()
@@ -25,9 +24,7 @@ class CommitLintRunner extends CommandRunner {
               'lower end of the commit range to lint. This is succeeded to --edit')
       ..addOption('to',
           help:
-              'upper end of the commit range to lint. This is succeeded to --edit')
-      ..addFlag('version',
-          negatable: false, help: 'display version information');
+              'upper end of the commit range to lint. This is succeeded to --edit');
   }
 
   @override
@@ -36,10 +33,6 @@ class CommitLintRunner extends CommandRunner {
 
   @override
   Future<void> runCommand(ArgResults topLevelResults) async {
-    if (topLevelResults['version'] == true) {
-      stderr.writeln('commitlint@$kCurrentVersion');
-      return;
-    }
     if (topLevelResults.arguments.contains('-h') ||
         topLevelResults.arguments.contains('--help')) {
       printUsage();

@@ -27,9 +27,7 @@ body:
       label: Version
       description: |
         What version of commitlint_cli are you running?
-
-        > Tip: You can use `dart run commitlint_cli --version` to get the current version.
-      placeholder: "0.5.1"
+      placeholder: "version"
 
   - type: textarea
     id: description
