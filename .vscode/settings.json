@@ -1,4 +1,0 @@
-{
-  "dart.runPubGetOnPubspecChanges": "never",
-  "dart.flutterSdkPath": ".flutter/sdk"
-}
