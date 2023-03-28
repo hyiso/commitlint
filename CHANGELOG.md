@@ -1,3 +1,12 @@
+## 0.4.0-pre.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**:  remove `--version`
+ - **BREAKING** **FEAT**: Replace support of `DEBUG=true` env to `VERBOSE=true` by using package [`verbose`](https://pub.dev/packages/verbose).
+ - Fix parse `!` like `feat!:subject`.
+ - Fix parse Merge commit.
+
 ## 0.3.0
 
 > Note: This release has breaking changes.
