@@ -89,4 +89,18 @@ class CommitReference {
     this.repository,
     this.issue,
   });
+
+  @override
+  operator ==(other) {
+    return other is CommitReference &&
+        raw == other.raw &&
+        prefix == other.prefix &&
+        action == other.action &&
+        owner == other.owner &&
+        repository == other.repository &&
+        issue == other.issue;
+  }
+
+  @override
+  int get hashCode => raw.hashCode;
 }
