@@ -1,6 +1,6 @@
 name: commitlint_cli
 description: Commitlint lint commit messages to satisfy conventional commit format
-version: 0.4.0
+version: 0.4.1
 homepage: https://github.com/hyiso/commitlint
 documentation: https://hyiso.github.io/commitlint
 

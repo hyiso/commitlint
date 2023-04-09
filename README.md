@@ -6,7 +6,6 @@
 [![CI](https://github.com/hyiso/commitlint/actions/workflows/ci.yml/badge.svg)](https://github.com/hyiso/commitlint/actions/workflows/ci.yml)
 
 > Dart version commitlint - A tool to lint commit messages. (Inspired by JavaScript [commitlint](https://github.com/conventional-changelog/commitlint))
-> Dart version commitlint cli (known in JavaScript comunity)
 
 commitlint lint commit messages to satisfy [conventional commit format](https://www.conventionalcommits.org/)
 
