@@ -1,3 +1,6 @@
+## 0.4.2
+
+ - Set dart sdk minVersion to 2.15.0
 ## 0.4.1
 
  - Add exmaple README.md
