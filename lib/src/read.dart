@@ -31,6 +31,10 @@ Future<Iterable<String>> _getRangeCommits({
     ['log', ...gitLogArgs],
     workingDirectory: workingDirectory,
   );
+  if (result.exitCode != 0) {
+    throw ProcessException(
+        'git', ['log', ...gitLogArgs], result.stderr, result.exitCode);
+  }
   return ((result.stdout as String).trim().split('\n'))
       .where((message) => message.trim().isNotEmpty)
       .toList();
