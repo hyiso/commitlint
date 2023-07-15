@@ -62,8 +62,9 @@ No staged files match any of provided globs.
 husky - commit-msg hook exited with code 1 (add --no-verify to bypass)
 ```
 
-## Setup Github CI
+## Setup Github Actions
 
+### Validate PR Title
 Add `.github/workflows/pr_title.yml`
 ```yaml
 on:
@@ -83,4 +84,30 @@ jobs:
 
       - name: Validate Title of PR
         run: echo ${{ github.event.pull_request.title }} | dart run commitlint_cli
+```
+
+### Validate PR Commits
+Add `.github/workflows/pr_commits.yml`
+```yaml
+on:
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Get Dependencies
+        run: dart pub get
+
+      - name: Validate PR Commits
+        run: dart run commitlint_cli --from="origin/${{ github.base_ref }}" --to="${{ github.head_ref }}"
 ```
