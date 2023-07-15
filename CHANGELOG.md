@@ -1,3 +1,11 @@
+## 0.5.0
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FEAT**: throw exception if read commit message failed
+ - **FEAT**: support multi scopes
+ - **FIX**: print empty when output is empty (fix #9)
+
 ## 0.4.2
 
  - Set dart sdk minVersion to 2.15.0
