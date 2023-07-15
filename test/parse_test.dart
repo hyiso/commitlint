@@ -22,7 +22,7 @@ void main() {
       expect(commit.notes, equals([]));
       expect(commit.references, equals([]));
       expect(commit.type, equals(null));
-      expect(commit.scope, equals(null));
+      expect(commit.scopes, equals(null));
       expect(commit.subject, equals(null));
     });
     test('supports `type(scope): subject`', () {
@@ -35,7 +35,7 @@ void main() {
       expect(commit.notes, equals([]));
       expect(commit.references, equals([]));
       expect(commit.type, equals('type'));
-      expect(commit.scope, equals('scope'));
+      expect(commit.scopes, equals(['scope']));
       expect(commit.subject, equals('subject'));
     });
     test('supports `type!: subject`', () {
@@ -48,7 +48,7 @@ void main() {
       expect(commit.notes, equals([]));
       expect(commit.references, equals([]));
       expect(commit.type, equals('type'));
-      expect(commit.scope, equals(null));
+      expect(commit.scopes, equals(null));
       expect(commit.subject, equals('subject'));
     });
     test('supports `type(scope)!: subject`', () {
@@ -61,18 +61,24 @@ void main() {
       expect(commit.notes, equals([]));
       expect(commit.references, equals([]));
       expect(commit.type, equals('type'));
-      expect(commit.scope, equals('scope'));
+      expect(commit.scopes, equals(['scope']));
       expect(commit.subject, equals('subject'));
     });
-    test('supports scopes with /', () {
-      const message = 'type(some/scope): subject';
+    test('supports multi scopes separated by `/`', () {
+      const message = 'type(multi/scope): subject';
       final commit = parse(message);
-      expect(commit.scope, equals('some/scope'));
+      expect(commit.scopes, equals(['multi', 'scope']));
+      expect(commit.subject, equals('subject'));
+    });
+    test('supports multi scopes separated by `,`)', () {
+      const message = 'type(multi,scope): subject';
+      final commit = parse(message);
+      expect(commit.scopes, equals(['multi', 'scope']));
       expect(commit.subject, equals('subject'));
     });
 
     test('keep -side notes- in the body section', () {
-      final header = "type(some/scope): subject";
+      final header = "type(scope): subject";
       final body =
           "CI on master branch caught this:\n\n```\nUnhandled Exception:\nSystem.AggregateException: One or more errors occurred. (Some problem when connecting to 'api.mycryptoapi.com/eth')\n\n--- End of stack trace from previous location where exception was thrown ---\n\nat GWallet.Backend.FSharpUtil.ReRaise (System.Exception ex) [0x00000] in /Users/runner/work/geewallet/geewallet/src/GWallet.Backend/FSharpUtil.fs:206\n...\n```";
       final message = "$header\n\n$body";
@@ -88,7 +94,7 @@ void main() {
       const message = 'fix(面试评价): 测试';
       final commit = parse(message);
       expect(commit.subject, isNotNull);
-      expect(commit.scope, isNotNull);
+      expect(commit.scopes, isNotNull);
     });
     test('should trim extra newlines', () {
       final commit = parse(
@@ -104,7 +110,7 @@ void main() {
       expect(commit.header,
           equals('feat(scope): broadcast destroy event on scope destruction'));
       expect(commit.type, equals('feat'));
-      expect(commit.scope, equals('scope'));
+      expect(commit.scopes, equals(['scope']));
       expect(commit.subject,
           equals('broadcast destroy event on scope destruction'));
       expect(
@@ -156,7 +162,7 @@ void main() {
           equals(
               ' feat(scope): broadcast destroy event on scope destruction '));
       expect(commit.type, equals(null));
-      expect(commit.scope, equals(null));
+      expect(commit.scopes, equals(null));
       expect(commit.subject, equals(null));
       expect(
           commit.body,
@@ -200,7 +206,7 @@ void main() {
       expect(commit.header,
           equals('feat(scope): broadcast destroy event on scope destruction'));
       expect(commit.type, equals('feat'));
-      expect(commit.scope, equals('scope'));
+      expect(commit.scopes, equals(['scope']));
       expect(commit.subject,
           equals('broadcast destroy event on scope destruction'));
       expect(
@@ -267,7 +273,7 @@ void main() {
 
       test('should understand header parts in GitHub like pull request', () {
         expect(githubCommit.type, equals('feat'));
-        expect(githubCommit.scope, equals('scope'));
+        expect(githubCommit.scopes, equals(['scope']));
         expect(githubCommit.subject,
             equals('broadcast destroy event on scope destruction'));
       });
@@ -295,7 +301,7 @@ void main() {
 
       test('should understand header parts in GitLab like merge request', () {
         expect(gitlabCommit.type, equals('feat'));
-        expect(gitlabCommit.scope, equals('scope'));
+        expect(gitlabCommit.scopes, equals(['scope']));
         expect(gitlabCommit.subject,
             equals('broadcast destroy event on scope destruction'));
       });

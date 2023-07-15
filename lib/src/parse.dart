@@ -141,7 +141,7 @@ Commit parse(String raw) {
     merge: merge,
     header: header,
     type: headerParts['type'],
-    scope: headerParts['scope'],
+    scopes: headerParts['scope']?.split(RegExp(r'(/|,|\\)')),
     subject: headerParts['subject'],
     body: body != null ? _trimOffNewlines(body) : null,
     footer: footer != null ? _trimOffNewlines(footer) : null,

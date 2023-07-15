@@ -2,7 +2,13 @@ import 'package:change_case/change_case.dart';
 
 import 'types/case.dart';
 
-bool ensureCase(String raw, Case target) {
+bool ensureCase(dynamic raw, Case target) {
+  if (raw is Iterable) {
+    return raw.isEmpty || raw.every((element) => ensureCase(element, target));
+  }
+  if (raw is! String) {
+    return false;
+  }
   switch (target) {
     case Case.lower:
       return raw.toLowerCase() == raw;
@@ -31,16 +37,34 @@ bool ensureLeadingBlank(String raw) {
   return raw.startsWith('\n');
 }
 
-bool ensureMaxLength(String raw, num maxLength) {
-  return raw.length <= maxLength;
+bool ensureMaxLength(dynamic raw, num maxLength) {
+  if (raw == null) {
+    return true;
+  }
+  if (raw is String) {
+    return raw.length <= maxLength;
+  }
+  if (raw is Iterable) {
+    return raw.isEmpty || raw.every((element) => element.length <= maxLength);
+  }
+  return false;
 }
 
 bool ensureMaxLineLength(String raw, num maxLineLength) {
   return raw.split('\n').every((line) => ensureMaxLength(line, maxLineLength));
 }
 
-bool ensureMinLength(String raw, num minLength) {
-  return raw.length >= minLength;
+bool ensureMinLength(dynamic raw, num minLength) {
+  if (raw == null) {
+    return false;
+  }
+  if (raw is String) {
+    return raw.length >= minLength;
+  }
+  if (raw is Iterable) {
+    return raw.isEmpty || raw.every((element) => element.length >= minLength);
+  }
+  return false;
 }
 
 bool ensureEmpty(dynamic raw) {

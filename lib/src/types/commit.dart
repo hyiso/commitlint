@@ -2,7 +2,7 @@
 class Commit {
   final String header;
   final String? type;
-  final String? scope;
+  final List<String>? scopes;
   final String? subject;
   final String? body;
   final String? footer;
@@ -15,7 +15,7 @@ class Commit {
   Commit({
     required this.header,
     this.type,
-    this.scope,
+    this.scopes,
     this.subject,
     this.body,
     this.footer,
@@ -29,7 +29,7 @@ class Commit {
   Commit.empty()
       : header = '',
         type = null,
-        scope = null,
+        scopes = null,
         subject = null,
         body = null,
         footer = null,
@@ -44,7 +44,7 @@ class Commit {
       case CommitComponent.type:
         return type as T?;
       case CommitComponent.scope:
-        return scope as T?;
+        return scopes as T?;
       case CommitComponent.subject:
         return subject as T?;
       case CommitComponent.header:
