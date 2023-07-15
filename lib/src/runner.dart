@@ -44,10 +44,11 @@ class CommitLintRunner extends CommandRunner {
     bool fromStdin = from == null && to == null && edit == null;
     final messages =
         fromStdin ? await _stdin() : await read(from: from, to: to, edit: edit);
-    final rules = await load(file: topLevelResults['config']);
-    final results = (await Future.wait(
-        messages.map((message) async => await lint(message, rules))));
-    if (rules.isEmpty) {
+    final config = await load(topLevelResults['config']);
+    final results = (await Future.wait(messages.map((message) async =>
+        await lint(message, config.rules,
+            defaultIgnores: config.deafultIgnores, ignores: config.ignores))));
+    if (config.rules.isEmpty) {
       String input = '';
       if (results.isNotEmpty) {
         input = results.first.input;
@@ -58,7 +59,7 @@ class CommitLintRunner extends CommandRunner {
           valid: false,
           errors: [
             LintRuleOutcome(
-              level: RuleConfigSeverity.error,
+              level: RuleSeverity.error,
               valid: false,
               name: 'empty-rules',
               message: [

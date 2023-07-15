@@ -3,7 +3,7 @@ import 'types/case.dart';
 import 'types/commit.dart';
 import 'types/rule.dart';
 
-Map<String, Rule> get supportedRules => {
+Map<String, RuleFunction> get supportedRules => {
       'type-case': caseRule(CommitComponent.type),
       'type-empty': emptyRule(CommitComponent.type),
       'type-enum': enumRule(CommitComponent.type),
@@ -39,14 +39,14 @@ Map<String, Rule> get supportedRules => {
     };
 
 /// Build full stop rule for commit component.
-Rule fullStopRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! ValueRuleConfig) {
+RuleFunction fullStopRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! ValueRule) {
       throw Exception('$config is not ValueRuleConfig<String>');
     }
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureFullStop(raw, config.value);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -59,11 +59,11 @@ Rule fullStopRule(CommitComponent component) {
 }
 
 /// Build leanding blank rule for commit component.
-Rule leadingBlankRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
+RuleFunction leadingBlankRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureLeadingBlank(raw);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -76,11 +76,11 @@ Rule leadingBlankRule(CommitComponent component) {
 }
 
 /// Build leanding blank rule for commit component.
-Rule emptyRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
+RuleFunction emptyRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
     final raw = commit.componentRaw(component);
     final result = ensureEmpty(raw);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message:
@@ -90,14 +90,14 @@ Rule emptyRule(CommitComponent component) {
 }
 
 /// Build case rule for commit component.
-Rule caseRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! CaseRuleConfig) {
+RuleFunction caseRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! CaseRule) {
       throw Exception('$config is not CaseRuleConfig');
     }
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureCase(raw, config.type);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -110,14 +110,14 @@ Rule caseRule(CommitComponent component) {
 }
 
 /// Build max length rule for commit component.
-Rule maxLengthRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! LengthRuleConfig) {
+RuleFunction maxLengthRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureMaxLength(raw, config.length);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -130,14 +130,14 @@ Rule maxLengthRule(CommitComponent component) {
 }
 
 /// Build max line length rule for commit component.
-Rule maxLineLengthRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! LengthRuleConfig) {
+RuleFunction maxLineLengthRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureMaxLineLength(raw, config.length);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -150,14 +150,14 @@ Rule maxLineLengthRule(CommitComponent component) {
 }
 
 /// Build min length rule for commit component.
-Rule minLengthRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! LengthRuleConfig) {
+RuleFunction minLengthRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
     final result = raw != null && ensureMinLength(raw, config.length);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [
@@ -169,14 +169,14 @@ Rule minLengthRule(CommitComponent component) {
   };
 }
 
-Rule enumRule(CommitComponent component) {
-  return (Commit commit, RuleConfig config) {
-    if (config is! EnumRuleConfig) {
+RuleFunction enumRule(CommitComponent component) {
+  return (Commit commit, Rule config) {
+    if (config is! EnumRule) {
       throw Exception('$config is not EnumRuleConfig');
     }
     final raw = commit.componentRaw(component);
     final result = ensureEnum(raw, config.allowed);
-    final negated = config.condition == RuleConfigCondition.never;
+    final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
       message: [

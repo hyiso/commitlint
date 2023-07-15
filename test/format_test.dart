@@ -16,7 +16,7 @@ void main() {
       errors: [
         LintRuleOutcome(
           valid: false,
-          level: RuleConfigSeverity.error,
+          level: RuleSeverity.error,
           name: 'error-name',
           message: 'There was an error',
         ),
@@ -31,7 +31,7 @@ void main() {
       warnings: [
         LintRuleOutcome(
           valid: false,
-          level: RuleConfigSeverity.warning,
+          level: RuleSeverity.warning,
           name: 'warning-name',
           message: 'There was a problem',
         ),

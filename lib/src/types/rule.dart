@@ -2,22 +2,22 @@ import 'case.dart';
 import 'commit.dart';
 
 /// 0 disables the rule. For 1 it will be considered a warning for 2 an error
-enum RuleConfigSeverity {
+enum RuleSeverity {
   ignore,
   warning,
   error,
 }
 
-enum RuleConfigCondition {
+enum RuleCondition {
   always,
   never,
 }
 
-class RuleConfig {
-  final RuleConfigSeverity severity;
-  final RuleConfigCondition condition;
+class Rule {
+  final RuleSeverity severity;
+  final RuleCondition condition;
 
-  RuleConfig({
+  Rule({
     required this.severity,
     required this.condition,
   });
@@ -30,24 +30,24 @@ class RuleOutcome {
   RuleOutcome({required this.valid, required this.message});
 }
 
-typedef Rule = RuleOutcome Function(Commit, RuleConfig config);
+typedef RuleFunction = RuleOutcome Function(Commit, Rule config);
 
-class ValueRuleConfig extends RuleConfig {
+class ValueRule extends Rule {
   final String value;
 
-  ValueRuleConfig({
-    required RuleConfigSeverity severity,
-    required RuleConfigCondition condition,
+  ValueRule({
+    required RuleSeverity severity,
+    required RuleCondition condition,
     required this.value,
   }) : super(severity: severity, condition: condition);
 }
 
-class LengthRuleConfig extends RuleConfig {
+class LengthRule extends Rule {
   final num length;
 
-  LengthRuleConfig({
-    required RuleConfigSeverity severity,
-    required RuleConfigCondition condition,
+  LengthRule({
+    required RuleSeverity severity,
+    required RuleCondition condition,
     required this.length,
   }) : super(
           severity: severity,
@@ -55,22 +55,22 @@ class LengthRuleConfig extends RuleConfig {
         );
 }
 
-class EnumRuleConfig extends RuleConfig {
+class EnumRule extends Rule {
   final List<String> allowed;
 
-  EnumRuleConfig({
-    required RuleConfigSeverity severity,
-    required RuleConfigCondition condition,
+  EnumRule({
+    required RuleSeverity severity,
+    required RuleCondition condition,
     required this.allowed,
   }) : super(severity: severity, condition: condition);
 }
 
-class CaseRuleConfig extends RuleConfig {
+class CaseRule extends Rule {
   final Case type;
 
-  CaseRuleConfig({
-    required RuleConfigSeverity severity,
-    required RuleConfigCondition condition,
+  CaseRule({
+    required RuleSeverity severity,
+    required RuleCondition condition,
     required this.type,
   }) : super(severity: severity, condition: condition);
 }

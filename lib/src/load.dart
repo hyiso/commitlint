@@ -5,50 +5,50 @@ import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
 import 'types/case.dart';
+import 'types/commitlint.dart';
 import 'types/rule.dart';
 
 ///
-/// Load configured rules in given [file] from given [dir].
+/// Load configured rules in given [path] from given [directory].
 ///
-Future<Map<String, RuleConfig>> load({
-  required String file,
-  String? dir,
+Future<CommitLint> load(
+  String path, {
+  Directory? directory,
 }) async {
-  Map<String, RuleConfig> rules = {};
-  Uri? uri;
-  if (!file.startsWith('package:')) {
-    uri = toUri(join(dir ?? Directory.current.path, file));
-    dir = dirname(uri.path);
+  File? file;
+  if (!path.startsWith('package:')) {
+    final uri = toUri(join(directory?.path ?? Directory.current.path, path));
+    file = File.fromUri(uri);
   } else {
-    uri = await Isolate.resolvePackageUri(Uri.parse(file));
-    dir = uri?.path.split('/lib/').first;
-  }
-  if (uri != null) {
-    final file = File.fromUri(uri);
-    if (await file.exists()) {
-      final yaml = loadYaml(await file.readAsString());
-      final include = yaml?['include'] as String?;
-      final rulesMap = yaml?['rules'] as Map?;
-      if (rulesMap != null) {
-        for (var entry in rulesMap.entries) {
-          rules[entry.key] = _extractRuleConfig(entry.value);
-        }
-      }
-      if (include != null) {
-        final upstream = await load(dir: dir, file: include);
-        if (upstream.isNotEmpty) {
-          rules = {
-            ...upstream,
-            ...rules,
-          };
-        }
-      }
+    final uri = await Isolate.resolvePackageUri(Uri.parse(path));
+    if (uri != null) {
+      file = File.fromUri(uri);
     }
   }
-  return rules;
+  if (file != null && file.existsSync()) {
+    final yaml = loadYaml(await file.readAsString());
+    final include = yaml?['include'] as String?;
+    final rulesMap = yaml?['rules'] as Map?;
+    Map<String, Rule> rules = {};
+    if (rulesMap != null) {
+      for (var entry in rulesMap.entries) {
+        rules[entry.key] = _extractRule(entry.value);
+      }
+    }
+    final config = CommitLint(
+        rules: rules,
+        deafultIgnores: yaml?['deafultIgnores'] as bool?,
+        ignores: yaml?['ignores'] as Iterable<String>?);
+    if (include != null) {
+      final upstream = await load(include, directory: file.parent);
+      return config.inherit(upstream);
+    }
+    return config;
+  }
+  return CommitLint();
 }
 
-RuleConfig _extractRuleConfig(dynamic config) {
+Rule _extractRule(dynamic config) {
   if (config is! List) {
     throw Exception('rule config must be list, but get $config');
   }
@@ -56,17 +56,17 @@ RuleConfig _extractRuleConfig(dynamic config) {
     throw Exception(
         'rule config must contain at least two, at most three items.');
   }
-  final severity = _extractRuleConfigSeverity(config.first as int);
-  final condition = _extractRuleConfigCondition(config.elementAt(1) as String);
+  final severity = _extractRuleSeverity(config.first as int);
+  final condition = _extractRuleCondition(config.elementAt(1) as String);
   dynamic value;
   if (config.length == 3) {
     value = config.last;
   }
   if (value == null) {
-    return RuleConfig(severity: severity, condition: condition);
+    return Rule(severity: severity, condition: condition);
   }
   if (value is num) {
-    return LengthRuleConfig(
+    return LengthRule(
       severity: severity,
       condition: condition,
       length: value,
@@ -74,13 +74,13 @@ RuleConfig _extractRuleConfig(dynamic config) {
   }
   if (value is String) {
     if (value.endsWith('-case')) {
-      return CaseRuleConfig(
+      return CaseRule(
         severity: severity,
         condition: condition,
         type: _extractCase(value),
       );
     } else {
-      return ValueRuleConfig(
+      return ValueRule(
         severity: severity,
         condition: condition,
         value: value,
@@ -88,34 +88,34 @@ RuleConfig _extractRuleConfig(dynamic config) {
     }
   }
   if (value is List) {
-    return EnumRuleConfig(
+    return EnumRule(
       severity: severity,
       condition: condition,
       allowed: value.cast(),
     );
   }
-  return ValueRuleConfig(
+  return ValueRule(
     severity: severity,
     condition: condition,
     value: value,
   );
 }
 
-RuleConfigSeverity _extractRuleConfigSeverity(int severity) {
-  if (severity < 0 || severity > RuleConfigSeverity.values.length - 1) {
+RuleSeverity _extractRuleSeverity(int severity) {
+  if (severity < 0 || severity > RuleSeverity.values.length - 1) {
     throw Exception(
-        'rule severity can only be 0..${RuleConfigSeverity.values.length - 1}');
+        'rule severity can only be 0..${RuleSeverity.values.length - 1}');
   }
-  return RuleConfigSeverity.values[severity];
+  return RuleSeverity.values[severity];
 }
 
-RuleConfigCondition _extractRuleConfigCondition(String condition) {
-  var allowed = RuleConfigCondition.values.map((e) => e.name).toList();
+RuleCondition _extractRuleCondition(String condition) {
+  var allowed = RuleCondition.values.map((e) => e.name).toList();
   final index = allowed.indexOf(condition);
   if (index == -1) {
     throw Exception('rule condition can only one of $allowed');
   }
-  return RuleConfigCondition.values[index];
+  return RuleCondition.values[index];
 }
 
 Case _extractCase(String name) {
