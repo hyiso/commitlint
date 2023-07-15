@@ -101,7 +101,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref }}
 
       - uses: dart-lang/setup-dart@v1.3
 
@@ -109,5 +108,5 @@ jobs:
         run: dart pub get
 
       - name: Validate PR Commits
-        run: dart run commitlint_cli --from="origin/${{ github.base_ref }}" --to="${{ github.head_ref }}"
+        run: VERBOSE=true dart run commitlint_cli --from=${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to=${{ github.event.pull_request.head.sha }} --config lib/commitlint.yaml
 ```
