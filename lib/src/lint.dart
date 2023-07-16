@@ -1,4 +1,3 @@
-
 import 'is_ignored.dart';
 import 'parse.dart';
 import 'rules.dart';
