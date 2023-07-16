@@ -1,3 +1,4 @@
+import 'is_ignored.dart';
 import 'parse.dart';
 import 'rules.dart';
 import 'types/commit.dart';
@@ -7,12 +8,18 @@ import 'types/rule.dart';
 ///
 /// Lint commit [message] with configured [rules]
 ///
-Future<LintOutcome> lint(String message, Map<String, RuleConfig> rules) async {
-  // Parse the commit message
+Future<LintOutcome> lint(String message, Map<String, Rule> rules,
+    {bool? defaultIgnores, Iterable<String>? ignores}) async {
+  /// Found a wildcard match, skip
+  if (isIgnored(message, defaultIgnores: defaultIgnores, ignores: ignores)) {
+    return LintOutcome(input: message, valid: true, errors: [], warnings: []);
+  }
+
+  /// Parse the commit message
   final commit = message.isEmpty ? Commit.empty() : parse(message);
 
   if (commit.header.isEmpty && commit.body == null && commit.footer == null) {
-    // Commit is empty, skip
+    /// Commit is empty, skip
     return LintOutcome(input: message, valid: true, errors: [], warnings: []);
   }
   final allRules = Map.of(supportedRules);
@@ -22,13 +29,13 @@ Future<LintOutcome> lint(String message, Map<String, RuleConfig> rules) async {
   if (missing.isNotEmpty) {
     final names = [...allRules.keys];
     throw RangeError(
-        'Found invalid rule names: ${missing.join(', ')}. Supported rule names are: ${names.join(', ')}');
+        'Found invalid rule names: ${missing.join(', ')}. \nSupported rule names are: ${names.join(', ')}');
   }
 
   /// Validate against all rules
   final results = rules.entries
       // Level 0 rules are ignored
-      .where((entry) => entry.value.severity != RuleConfigSeverity.ignore)
+      .where((entry) => entry.value.severity != RuleSeverity.ignore)
       .map((entry) {
         final name = entry.key;
         final config = entry.value;
@@ -49,9 +56,9 @@ Future<LintOutcome> lint(String message, Map<String, RuleConfig> rules) async {
       .where((outcome) => !outcome.valid)
       .toList();
   final errors =
-      results.where((element) => element.level == RuleConfigSeverity.error);
+      results.where((element) => element.level == RuleSeverity.error);
   final warnings =
-      results.where((element) => element.level == RuleConfigSeverity.warning);
+      results.where((element) => element.level == RuleSeverity.warning);
   return LintOutcome(
     input: message,
     valid: errors.isEmpty,

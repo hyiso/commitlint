@@ -18,9 +18,9 @@ void main() {
 
   test('positive on stub message and adhered rule', () async {
     final result = await lint('foo: bar', {
-      'type-enum': EnumRuleConfig(
-        severity: RuleConfigSeverity.error,
-        condition: RuleConfigCondition.always,
+      'type-enum': EnumRule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.always,
         allowed: ['foo'],
       ),
     });
@@ -29,9 +29,9 @@ void main() {
 
   test('negative on stub message and broken rule', () async {
     final result = await lint('foo: bar', {
-      'type-enum': EnumRuleConfig(
-        severity: RuleConfigSeverity.error,
-        condition: RuleConfigCondition.never,
+      'type-enum': EnumRule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
         allowed: ['foo'],
       ),
     });
@@ -40,23 +40,55 @@ void main() {
 
   test('positive on ignored message and broken rule', () async {
     final result = await lint('Revert "some bogus commit"', {
-      'type-empty': RuleConfig(
-        severity: RuleConfigSeverity.error,
-        condition: RuleConfigCondition.never,
+      'type-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
       ),
     });
-    expect(result.valid, false);
+    expect(result.valid, true);
     expect(result.input, equals('Revert "some bogus commit"'));
   });
 
   test('negative on ignored message, disabled ignored messages and broken rule',
       () async {
-    final result = await lint('Revert "some bogus commit"', {
-      'type-empty': RuleConfig(
-        severity: RuleConfigSeverity.error,
-        condition: RuleConfigCondition.never,
-      ),
-    });
+    final result = await lint(
+        'Revert "some bogus commit"',
+        {
+          'type-empty': Rule(
+            severity: RuleSeverity.error,
+            condition: RuleCondition.never,
+          ),
+        },
+        defaultIgnores: false);
     expect(result.valid, false);
+  });
+
+  test('positive on custom ignored message and broken rule', () async {
+    final ignoredMessage = 'some ignored custom message';
+    final result = await lint(ignoredMessage, {
+      'type-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
+      ),
+    }, ignores: [
+      ignoredMessage
+    ]);
+    expect(result.valid, true);
+    expect(result.input, equals(ignoredMessage));
+  });
+
+  test('throws for invalid rule names', () async {
+    await expectLater(
+        lint('foo', {
+          'foo': Rule(
+            severity: RuleSeverity.error,
+            condition: RuleCondition.always,
+          ),
+          'bar': Rule(
+            severity: RuleSeverity.warning,
+            condition: RuleCondition.never,
+          ),
+        }),
+        throwsRangeError);
   });
 }

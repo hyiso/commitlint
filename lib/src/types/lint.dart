@@ -26,7 +26,7 @@ class LintRuleOutcome {
   final bool valid;
 
   /// The "severity" of the rule (0 = ignore, 1 = warning, 2 = error)
-  final RuleConfigSeverity level;
+  final RuleSeverity level;
 
   /// The name of the rule
   final String name;

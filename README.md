@@ -30,9 +30,28 @@ dart pub add --dev commitlint_cli
 ### Configuration
 
 ```bash
-# Configure commitlint to use conventional config
+# Simply use configuration of a package
 echo "include: package:commitlint_cli/commitlint.yaml" > commitlint.yaml
 ```
+You can also customize your configuration in `commitlint.yaml`
+```yaml
+# Inherit configuration of a package
+include: package:commitlint_cli/commitlint.yaml
+
+# Custom rules
+rules:
+  type-case:
+    - 2
+    - always
+    - 'upper-case'
+
+# Whether commitlint uses the default ignore rules.
+defaultIgnores: true
+# Pattern that matches commit message if commitlint should ignore the given message.
+ignores:
+  - r'^fixup'
+```
+
 
 ### Test
 

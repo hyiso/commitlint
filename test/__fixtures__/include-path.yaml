@@ -5,3 +5,7 @@ rules:
     - 2
     - always
     - 'upper-case'
+
+defaultIgnores: false
+ignores:
+  - r'^fixup'
