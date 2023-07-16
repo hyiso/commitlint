@@ -1,3 +1,19 @@
+## 0.6.0-pre.0
+
+> Note: This release has breaking changes.
+
+- **BREAKING** **FEAT**: Support ignores commit messages. 
+
+Default ignores patterns are:
+  - `r'((Merge pull request)|(Merge (.*?) into (.*?)|(Merge branch (.*?)))(?:\r?\n)*$)'`
+  - `r'(Merge tag (.*?))(?:\r?\n)*$'`
+  - `r'(R|r)evert (.*)'`
+  - `r'(fixup|squash)!'`
+  - `r'(Merged (.*?)(in|into) (.*)|Merged PR (.*): (.*))'`
+  - `r'Merge remote-tracking branch(\s*)(.*)'`
+  - `r'Automatic merge(.*)'`
+  - `r'Auto-merged (.*?) into (.*)'`
+
 ## 0.5.0
 
 > Note: This release has breaking changes.
