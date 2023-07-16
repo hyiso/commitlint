@@ -62,4 +62,33 @@ void main() {
         defaultIgnores: false);
     expect(result.valid, false);
   });
+
+  test('positive on custom ignored message and broken rule', () async {
+    final ignoredMessage = 'some ignored custom message';
+    final result = await lint(ignoredMessage, {
+      'type-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
+      ),
+    }, ignores: [
+      ignoredMessage
+    ]);
+    expect(result.valid, true);
+    expect(result.input, equals(ignoredMessage));
+  });
+
+  test('throws for invalid rule names', () async {
+    await expectLater(
+        lint('foo', {
+          'foo': Rule(
+            severity: RuleSeverity.error,
+            condition: RuleCondition.always,
+          ),
+          'bar': Rule(
+            severity: RuleSeverity.warning,
+            condition: RuleCondition.never,
+          ),
+        }),
+        throwsRangeError);
+  });
 }

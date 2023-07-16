@@ -1,3 +1,4 @@
+
 import 'is_ignored.dart';
 import 'parse.dart';
 import 'rules.dart';
@@ -29,7 +30,7 @@ Future<LintOutcome> lint(String message, Map<String, Rule> rules,
   if (missing.isNotEmpty) {
     final names = [...allRules.keys];
     throw RangeError(
-        'Found invalid rule names: ${missing.join(', ')}. Supported rule names are: ${names.join(', ')}');
+        'Found invalid rule names: ${missing.join(', ')}. \nSupported rule names are: ${names.join(', ')}');
   }
 
   /// Validate against all rules

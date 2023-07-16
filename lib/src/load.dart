@@ -28,17 +28,14 @@ Future<CommitLint> load(
   if (file != null && file.existsSync()) {
     final yaml = loadYaml(await file.readAsString());
     final include = yaml?['include'] as String?;
-    final rulesMap = yaml?['rules'] as Map?;
-    Map<String, Rule> rules = {};
-    if (rulesMap != null) {
-      for (var entry in rulesMap.entries) {
-        rules[entry.key] = _extractRule(entry.value);
-      }
-    }
+    final rules = yaml?['rules'] as YamlMap?;
+    final ignores = yaml?['ignores'] as YamlList?;
+    final defaultIgnores = yaml?['defaultIgnores'] as bool?;
     final config = CommitLint(
-        rules: rules,
-        deafultIgnores: yaml?['deafultIgnores'] as bool?,
-        ignores: yaml?['ignores'] as Iterable<String>?);
+        rules: rules?.map((key, value) => MapEntry(key, _extractRule(value))) ??
+            {},
+        ignores: ignores?.cast(),
+        defaultIgnores: defaultIgnores);
     if (include != null) {
       final upstream = await load(include, directory: file.parent);
       return config.inherit(upstream);

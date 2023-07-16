@@ -1,11 +1,11 @@
 import 'rule.dart';
 
 class CommitLint {
-  CommitLint({this.rules = const {}, this.deafultIgnores, this.ignores});
+  CommitLint({this.rules = const {}, this.defaultIgnores, this.ignores});
 
   final Map<String, Rule> rules;
 
-  final bool? deafultIgnores;
+  final bool? defaultIgnores;
 
   final Iterable<String>? ignores;
 
@@ -15,7 +15,7 @@ class CommitLint {
         ...other.rules,
         ...rules,
       },
-      deafultIgnores: other.deafultIgnores ?? deafultIgnores,
+      defaultIgnores: defaultIgnores ?? other.defaultIgnores,
       ignores: [
         ...?other.ignores,
         ...?ignores,

@@ -17,6 +17,8 @@ void main() {
     expect((config.rules['type-case'] as CaseRule).type, Case.lower);
     expect((config.rules['type-enum'] as EnumRule).allowed,
         equals(['feat', 'fix', 'docs', 'chore']));
+    expect(config.defaultIgnores, equals(null));
+    expect(config.ignores, equals(null));
   });
   test('include relative path should work', () async {
     final config = await load('test/__fixtures__/include-path.yaml');
@@ -25,6 +27,8 @@ void main() {
     expect(config.rules['type-case'], isA<CaseRule>());
     expect(config.rules['type-enum'], isA<EnumRule>());
     expect((config.rules['type-case'] as CaseRule).type, Case.upper);
+    expect(config.defaultIgnores, equals(false));
+    expect(config.ignores, equals(["r'^fixup'"]));
   });
   test('include package path should work', () async {
     final config = await load('test/__fixtures__/include-package.yaml');
@@ -33,5 +37,7 @@ void main() {
     expect(config.rules['type-case'], isA<CaseRule>());
     expect(config.rules['type-enum'], isA<EnumRule>());
     expect((config.rules['type-case'] as CaseRule).type, Case.upper);
+    expect(config.defaultIgnores, equals(null));
+    expect(config.ignores, equals(["r'^fixup'"]));
   });
 }
