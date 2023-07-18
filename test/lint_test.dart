@@ -91,4 +91,31 @@ void main() {
         }),
         throwsRangeError);
   });
+
+  test('positive on multi-line body message', () async {
+    final message = '''chore(deps): bump commitlint_cli from 0.5.0 to 0.6.0
+Bumps [commitlint_cli](https://github.com/hyiso/commitlint) from 0.5.0 to 0.6.0.
+- [Release notes](https://github.com/hyiso/commitlint/releases)
+- [Changelog](https://github.com/hyiso/commitlint/blob/main/CHANGELOG.md)
+- [Commits](hyiso/commitlint@v0.5.0...v0.6.0)
+
+---
+updated-dependencies:
+- dependency-name: commitlint_cli
+  dependency-type: direct:production
+  update-type: version-update:semver-minor
+...
+
+Signed-off-by: dependabot[bot] <support@github.com>
+
+''';
+    final result = await lint(message, {
+      'type-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
+      ),
+    });
+    expect(result.valid, true);
+    expect(result.input, equals(message));
+  });
 }
