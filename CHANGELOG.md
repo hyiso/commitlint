@@ -1,3 +1,7 @@
+## 0.6.1
+
+ - Fix bug in reading history commits when body contains multi lines
+
 ## 0.6.0
 
 > Note: This release has breaking changes.
