@@ -1,3 +1,7 @@
+## 0.6.2
+
+ - Bump `ansi` version to `0.3.0`, `change_case` to `1.1.0`
+
 ## 0.6.1
 
  - Fix bug in reading history commits when body contains multi lines
