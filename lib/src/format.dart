@@ -4,7 +4,7 @@ import 'types/format.dart';
 import 'types/lint.dart';
 
 const _kDefaultSigns = [' ', '⚠', '✖'];
-final _defaultColors = [ansi.white, ansi.yellow, ansi.red];
+final _defaultColors = [white, yellow, red];
 
 ///
 /// Format commitlint [report] to formatted output message.
@@ -22,10 +22,10 @@ String format({
 
 List<String> _formatInput(LintOutcome result) {
   final sign = '⧗';
-  final decoration = ansi.gray(sign);
+  final decoration = gray(sign);
   final commitText =
       result.errors.isNotEmpty ? result.input : result.input.split('\n').first;
-  final decoratedInput = ansi.bold(commitText);
+  final decoratedInput = bold(commitText);
   final hasProblem = result.errors.isNotEmpty || result.warnings.isNotEmpty;
   return hasProblem || Verbose.enabled
       ? ['$decoration  input: $decoratedInput']
@@ -37,7 +37,7 @@ List<String> _formatResult(LintOutcome result) {
     final sign = _kDefaultSigns[problem.level.index];
     final color = _defaultColors[problem.level.index];
     final decoration = color(sign);
-    final name = ansi.gray(problem.name);
+    final name = gray(problem.name);
     return '$decoration  ${problem.message} $name';
   });
 
@@ -47,7 +47,7 @@ List<String> _formatResult(LintOutcome result) {
   final summary = problems.isNotEmpty || Verbose.enabled
       ? '$decoration  found ${result.errors.length} error(s), ${result.warnings.length} warning(s)'
       : '';
-  final fmtSummary = summary.isNotEmpty ? ansi.bold(summary) : summary;
+  final fmtSummary = summary.isNotEmpty ? bold(summary) : summary;
   return [
     ...problems,
     if (problems.isNotEmpty) '',
@@ -65,7 +65,7 @@ String _selectSign(LintOutcome result) {
 
 String Function(String) _selectColor(LintOutcome result) {
   if (result.errors.isNotEmpty) {
-    return ansi.red;
+    return red;
   }
-  return result.warnings.isNotEmpty ? ansi.yellow : ansi.green;
+  return result.warnings.isNotEmpty ? yellow : green;
 }

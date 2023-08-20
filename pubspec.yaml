@@ -8,9 +8,9 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  ansi: ^0.2.2
+  ansi: ^0.3.0
   args: ^2.3.1
-  change_case: ^1.0.0+3
+  change_case: ^1.1.0
   path: ^1.8.0
   verbose: ^0.1.0
   yaml: ^3.1.1
