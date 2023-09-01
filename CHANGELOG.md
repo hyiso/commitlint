@@ -1,3 +1,7 @@
+## 0.6.3
+
+ - Bump `ansi` version `0.4.0`
+
 ## 0.6.2
 
  - Bump `ansi` version to `0.3.0`, `change_case` to `1.1.0`
