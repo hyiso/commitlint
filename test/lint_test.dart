@@ -92,6 +92,26 @@ void main() {
         throwsRangeError);
   });
 
+  test('succeds for issue', () async {
+    final result = await lint('somehting #1', {
+      'references-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.never,
+      ),
+    });
+    expect(result.valid, true);
+  });
+
+  test('fails for issue', () async {
+    final result = await lint('somehting #1', {
+      'references-empty': Rule(
+        severity: RuleSeverity.error,
+        condition: RuleCondition.always,
+      ),
+    });
+    expect(result.valid, false);
+  });
+
   test('positive on multi-line body message', () async {
     final message = '''chore(deps): bump commitlint_cli from 0.5.0 to 0.6.0
 Bumps [commitlint_cli](https://github.com/hyiso/commitlint) from 0.5.0 to 0.6.0.

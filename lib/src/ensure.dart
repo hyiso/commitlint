@@ -74,7 +74,7 @@ bool ensureEmpty(dynamic raw) {
   if (raw is String) {
     return raw.isEmpty;
   }
-  if (raw is Iterable<String>) {
+  if (raw is Iterable) {
     return raw.isEmpty;
   }
   return false;

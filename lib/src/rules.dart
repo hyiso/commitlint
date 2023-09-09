@@ -36,6 +36,7 @@ Map<String, RuleFunction> get supportedRules => {
       'footer-max-length': maxLengthRule(CommitComponent.footer),
       'footer-max-line-length': maxLineLengthRule(CommitComponent.footer),
       'footer-min-length': minLengthRule(CommitComponent.footer),
+      'references-empty': emptyRule(CommitComponent.references),
     };
 
 /// Build full stop rule for commit component.

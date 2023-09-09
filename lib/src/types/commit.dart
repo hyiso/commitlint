@@ -53,6 +53,8 @@ class Commit {
         return body as T?;
       case CommitComponent.footer:
         return footer as T?;
+      case CommitComponent.references:
+        return references as T?;
     }
   }
 }
@@ -64,6 +66,7 @@ enum CommitComponent {
   header,
   body,
   footer,
+  references,
 }
 
 /// Commit Note
