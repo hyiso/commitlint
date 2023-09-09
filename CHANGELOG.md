@@ -1,3 +1,7 @@
+## 0.7.0
+
+ - Support `references-empty` rule.
+
 ## 0.6.3
 
  - Bump `ansi` version `0.4.0`
