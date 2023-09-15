@@ -351,3 +351,8 @@ Infinity
 ```
 0
 ```
+
+#### references-empty
+
+- **condition**: `references` has at least one entry
+- **rule**: `never`
