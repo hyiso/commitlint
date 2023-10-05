@@ -39,14 +39,14 @@ Map<String, RuleFunction> get supportedRules => {
       'references-empty': emptyRule(CommitComponent.references),
     };
 
-/// Build full stop rule for commit component.
+/// Build full-stop rule for commit component.
 RuleFunction fullStopRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     if (config is! ValueRule) {
       throw Exception('$config is not ValueRuleConfig<String>');
     }
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureFullStop(raw, config.value);
+    final result = raw == null || ensureFullStop(raw, config.value);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -59,11 +59,11 @@ RuleFunction fullStopRule(CommitComponent component) {
   };
 }
 
-/// Build leanding blank rule for commit component.
+/// Build leanding-blank rule for commit component.
 RuleFunction leadingBlankRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureLeadingBlank(raw);
+    final result = raw == null || ensureLeadingBlank(raw);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -76,11 +76,11 @@ RuleFunction leadingBlankRule(CommitComponent component) {
   };
 }
 
-/// Build leanding blank rule for commit component.
+/// Build empty rule for commit component.
 RuleFunction emptyRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     final raw = commit.componentRaw(component);
-    final result = ensureEmpty(raw);
+    final result = raw == null || ensureEmpty(raw);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -97,7 +97,7 @@ RuleFunction caseRule(CommitComponent component) {
       throw Exception('$config is not CaseRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureCase(raw, config.type);
+    final result = raw == null || ensureCase(raw, config.type);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -110,14 +110,14 @@ RuleFunction caseRule(CommitComponent component) {
   };
 }
 
-/// Build max length rule for commit component.
+/// Build max-length rule for commit component.
 RuleFunction maxLengthRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureMaxLength(raw, config.length);
+    final result = raw == null || ensureMaxLength(raw, config.length);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -130,14 +130,14 @@ RuleFunction maxLengthRule(CommitComponent component) {
   };
 }
 
-/// Build max line length rule for commit component.
+/// Build max-line-length rule for commit component.
 RuleFunction maxLineLengthRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureMaxLineLength(raw, config.length);
+    final result = raw == null || ensureMaxLineLength(raw, config.length);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -150,14 +150,14 @@ RuleFunction maxLineLengthRule(CommitComponent component) {
   };
 }
 
-/// Build min length rule for commit component.
+/// Build min-length rule for commit component.
 RuleFunction minLengthRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     if (config is! LengthRule) {
       throw Exception('$config is not LengthRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = raw != null && ensureMinLength(raw, config.length);
+    final result = raw == null || ensureMinLength(raw, config.length);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
@@ -170,13 +170,14 @@ RuleFunction minLengthRule(CommitComponent component) {
   };
 }
 
+/// Build enum rule for commit component.
 RuleFunction enumRule(CommitComponent component) {
   return (Commit commit, Rule config) {
     if (config is! EnumRule) {
       throw Exception('$config is not EnumRuleConfig');
     }
     final raw = commit.componentRaw(component);
-    final result = ensureEnum(raw, config.allowed);
+    final result = raw == null || ensureEnum(raw, config.allowed);
     final negated = config.condition == RuleCondition.never;
     return RuleOutcome(
       valid: negated ? !result : result,
