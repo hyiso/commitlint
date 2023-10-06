@@ -1,3 +1,7 @@
+## 0.7.1
+
+ - rule should pass if commit component raw is null (fix #18)
+
 ## 0.7.0
 
  - Support `references-empty` rule.
