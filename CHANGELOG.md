@@ -1,3 +1,7 @@
+## 0.7.2
+
+ - ignoring mulitline merge commit message (fix #20)
+
 ## 0.7.1
 
  - rule should pass if commit component raw is null (fix #18)
