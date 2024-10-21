@@ -1,22 +1,16 @@
 bool isIgnored(String message,
     {bool? defaultIgnores, Iterable<String>? ignores}) {
-  final base = defaultIgnores == false ? [] : wildcards;
-  return [...base, ...?ignores?.map(ignore)].any((mathcer) => mathcer(message));
+  return [if (defaultIgnores != false) ..._wildcards, ...?ignores]
+      .any((pattern) => RegExp(pattern).hasMatch(message));
 }
 
-final wildcards = [
-  ignore(
-      r'((Merge pull request)|(Merge (.*?) into (.*?)|(Merge branch (.*?)))(?:\r?\n)*$)'),
-  ignore(r'(Merge tag (.*?))(?:\r?\n)*$'),
-  ignore(r'(R|r)evert (.*)'),
-  ignore(r'(fixup|squash)!'),
-  ignore(r'(Merged (.*?)(in|into) (.*)|Merged PR (.*): (.*))'),
-  ignore(r'Merge remote-tracking branch(\s*)(.*)'),
-  ignore(r'Automatic merge(.*)'),
-  ignore(r'Auto-merged (.*?) into (.*)'),
+final _wildcards = [
+  r'((Merge pull request)|(Merge (.*?) into (.*?)|(Merge branch (.*?)))(?:\r?\n)*)',
+  r'(Merge tag (.*?))(?:\r?\n)*$',
+  r'(R|r)evert (.*)',
+  r'(fixup|squash)!',
+  r'(Merged (.*?)(in|into) (.*)|Merged PR (.*): (.*))',
+  r'Merge remote-tracking branch(\s*)(.*)',
+  r'Automatic merge(.*)',
+  r'Auto-merged (.*?) into (.*)',
 ];
-
-Matcher ignore(String pattern) =>
-    (String message) => RegExp(pattern).hasMatch(message);
-
-typedef Matcher = bool Function(String);
