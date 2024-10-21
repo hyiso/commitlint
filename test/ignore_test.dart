@@ -1,5 +1,4 @@
-import 'package:commitlint_cli/src/lint.dart';
-import 'package:commitlint_cli/src/types/rule.dart';
+import 'package:commitlint_cli/src/is_ignored.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -9,16 +8,7 @@ void main() {
 # Conflicts:
 #	xyz.yaml
 ''';
-    final result = await lint(
-        message,
-        {
-          'type-empty': Rule(
-            severity: RuleSeverity.error,
-            condition: RuleCondition.never,
-          ),
-        },
-        defaultIgnores: true);
-    expect(result.valid, true);
-    expect(result.input, equals(message));
+    final result = isIgnored(message, defaultIgnores: true);
+    expect(result, true);
   });
 }
