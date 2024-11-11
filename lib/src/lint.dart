@@ -3,20 +3,27 @@ import 'parse.dart';
 import 'rules.dart';
 import 'types/commit.dart';
 import 'types/lint.dart';
+import 'types/parser.dart';
 import 'types/rule.dart';
 
 ///
 /// Lint commit [message] with configured [rules]
 ///
-Future<LintOutcome> lint(String message, Map<String, Rule> rules,
-    {bool? defaultIgnores, Iterable<String>? ignores}) async {
+Future<LintOutcome> lint(
+  String message,
+  Map<String, Rule> rules, {
+  ParserOptions? parserOptions,
+  bool? defaultIgnores,
+  Iterable<String>? ignores,
+}) async {
   /// Found a wildcard match, skip
   if (isIgnored(message, defaultIgnores: defaultIgnores, ignores: ignores)) {
     return LintOutcome(input: message, valid: true, errors: [], warnings: []);
   }
 
   /// Parse the commit message
-  final commit = message.isEmpty ? Commit.empty() : parse(message);
+  final commit =
+      message.isEmpty ? Commit.empty() : parse(message, options: parserOptions);
 
   if (commit.header.isEmpty && commit.body == null && commit.footer == null) {
     /// Commit is empty, skip
