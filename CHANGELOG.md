@@ -1,3 +1,7 @@
+## 0.8.0
+
+ - Support parser options in `commitlint.yaml` under section `parser`
+
 ## 0.7.2
 
  - ignoring mulitline merge commit message (fix #20)
