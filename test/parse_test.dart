@@ -3,6 +3,7 @@
 import 'package:collection/collection.dart';
 import 'package:commitlint_cli/src/parse.dart';
 import 'package:commitlint_cli/src/types/commit.dart';
+import 'package:commitlint_cli/src/types/parser.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -253,6 +254,22 @@ void main() {
           '# ------------------------ >8 ------------------------\n' +
           'this is a line that should be truncated\n');
       expect(commit.body, equals('this is some body before a scissors-line'));
+    });
+
+    test('should use custom parser options with headerPattern', () {
+      final commit = parse('type(scope)-subject',
+          options: ParserOptions(headerPattern: r'^(\w*)(?:\((.*)\))?-(.*)$'));
+      expect(commit.header, equals('type(scope)-subject'));
+      expect(commit.scopes, equals(['scope']));
+      expect(commit.subject, equals('subject'));
+      expect(commit.type, equals('type'));
+    });
+
+    test('should use custom parser options with custom issuePrefixes', () {
+      final commit = parse('fix: change git convention to fix CD workflow sv-4',
+          options: ParserOptions(issuePrefixes: ['sv-']));
+      expect(commit.type, equals('fix'));
+      expect(commit.references.first.issue, equals('4'));
     });
 
     group('merge commits', () {

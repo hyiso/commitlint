@@ -1,35 +1,14 @@
 import 'types/commit.dart';
+import 'types/parser.dart';
 
 ///
 /// Parse Commit Message String to Convensional Commit
 ///
-
-final _kHeaderPattern =
-    RegExp(r'^(?<type>\w*?)(\((?<scope>.*)\))?!?: (?<subject>.+)$');
-const _kHeaderCorrespondence = ['type', 'scope', 'subject'];
-
-const _kReferenceActions = [
-  'close',
-  'closes',
-  'closed',
-  'fix',
-  'fixes',
-  'fixed',
-  'resolve',
-  'resolves',
-  'resolved'
-];
-
-const _kIssuePrefixes = ['#'];
-const _kNoteKeywords = ['BREAKING CHANGE', 'BREAKING-CHANGE'];
-final _kMergePattern = RegExp(r'^(Merge|merge)\s(.*)$');
-final _kRevertPattern = RegExp(
-    r'^(?:Revert|revert:)\s"?(?<header>[\s\S]+?)"?\s*This reverts commit (?<hash>\w*)\.');
-const _kRevertCorrespondence = ['header', 'hash'];
-
-final _kMentionsPattern = RegExp(r'@([\w-]+)');
-
-Commit parse(String raw) {
+Commit parse(
+  String raw, {
+  ParserOptions? options,
+}) {
+  options ??= const ParserOptions();
   if (raw.trim().isEmpty) {
     throw ArgumentError.value(raw, null, 'message raw must have content.');
   }
@@ -44,7 +23,7 @@ Commit parse(String raw) {
   final rawLines = _trimOffNewlines(raw).split(RegExp(r'\r?\n'));
   final lines = _truncateToScissor(rawLines).where(_gpgFilter).toList();
   merge = lines.removeAt(0);
-  final mergeMatch = _kMergePattern.firstMatch(merge);
+  final mergeMatch = RegExp(options.mergePattern).firstMatch(merge);
   if (mergeMatch != null) {
     merge = mergeMatch.group(0);
     if (lines.isNotEmpty) {
@@ -58,22 +37,27 @@ Commit parse(String raw) {
     header = merge;
     merge = null;
   }
-  final headerMatch = _kHeaderPattern.firstMatch(header);
+  final headerMatch = RegExp(options.headerPattern).firstMatch(header);
   final headerParts = <String, String?>{};
   if (headerMatch != null) {
-    for (var name in _kHeaderCorrespondence) {
-      headerParts[name] = headerMatch.namedGroup(name);
+    for (int i = 0; i < options.headerCorrespondence.length; i++) {
+      final String key = options.headerCorrespondence[i];
+      headerParts[key] = headerMatch.group(i + 1);
     }
+    // for (var name in options.headerCorrespondence) {
+    //   headerParts[name] = headerMatch.namedGroup(name);
+    // }
   }
-  final referencesPattern = _getReferenceRegex(_kReferenceActions);
-  final referencePartsPattern = _getReferencePartsRegex(_kIssuePrefixes, false);
+  final referencesPattern = _getReferenceRegex(options.referenceActions);
+  final referencePartsPattern =
+      _getReferencePartsRegex(options.issuePrefixes, false);
   references.addAll(_getReferences(header,
       referencesPattern: referencesPattern,
       referencePartsPattern: referencePartsPattern));
 
   bool continueNote = false;
   bool isBody = true;
-  final notesPattern = _getNotesRegex(_kNoteKeywords);
+  final notesPattern = _getNotesRegex(options.noteKeywords);
 
   /// body or footer
   for (var line in lines) {
@@ -118,18 +102,19 @@ Commit parse(String raw) {
     }
   }
 
-  Match? mentionsMatch = _kMentionsPattern.firstMatch(raw);
+  final mentionsRegex = RegExp(options.mentionsPattern);
+  Match? mentionsMatch = mentionsRegex.firstMatch(raw);
   while (mentionsMatch != null) {
     mentions.add(mentionsMatch.group(1)!);
-    mentionsMatch = _kMentionsPattern.matchAsPrefix(raw, mentionsMatch.end);
+    mentionsMatch = mentionsRegex.matchAsPrefix(raw, mentionsMatch.end);
   }
 
   // does this commit revert any other commit?
-  final revertMatch = _kRevertPattern.firstMatch(raw);
+  final revertMatch = RegExp(options.revertPattern).firstMatch(raw);
   if (revertMatch != null) {
     revert = {};
-    for (var i = 0; i < _kRevertCorrespondence.length; i++) {
-      revert[_kRevertCorrespondence[i]] = revertMatch.group(i + 1);
+    for (var i = 0; i < options.revertCorrespondence.length; i++) {
+      revert[options.revertCorrespondence[i]] = revertMatch.group(i + 1);
     }
   }
 
@@ -141,7 +126,7 @@ Commit parse(String raw) {
     merge: merge,
     header: header,
     type: headerParts['type'],
-    scopes: headerParts['scope']?.split(RegExp(r'(/|,|\\)')),
+    scopes: headerParts['scope']?.split(RegExp(r'\/|\\|, ?')),
     subject: headerParts['subject'],
     body: body != null ? _trimOffNewlines(body) : null,
     footer: footer != null ? _trimOffNewlines(footer) : null,

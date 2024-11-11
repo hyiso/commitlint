@@ -6,6 +6,7 @@ import 'package:yaml/yaml.dart';
 
 import 'types/case.dart';
 import 'types/commitlint.dart';
+import 'types/parser.dart';
 import 'types/rule.dart';
 
 ///
@@ -31,11 +32,14 @@ Future<CommitLint> load(
     final rules = yaml?['rules'] as YamlMap?;
     final ignores = yaml?['ignores'] as YamlList?;
     final defaultIgnores = yaml?['defaultIgnores'] as bool?;
+    final parser = yaml?['parser'] as YamlMap?;
     final config = CommitLint(
-        rules: rules?.map((key, value) => MapEntry(key, _extractRule(value))) ??
-            {},
-        ignores: ignores?.cast(),
-        defaultIgnores: defaultIgnores);
+      rules:
+          rules?.map((key, value) => MapEntry(key, _extractRule(value))) ?? {},
+      ignores: ignores?.cast(),
+      defaultIgnores: defaultIgnores,
+      parser: parser != null ? ParserOptions.fromYaml(parser) : null,
+    );
     if (include != null) {
       final upstream = await load(include, directory: file.parent);
       return config.inherit(upstream);
