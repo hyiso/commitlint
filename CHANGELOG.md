@@ -1,3 +1,7 @@
+## 0.8.1
+
+ - Fix `parserOptions` not passed to `lint`
+
 ## 0.8.0
 
  - Support parser options in `commitlint.yaml` under section `parser`
