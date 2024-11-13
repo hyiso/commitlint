@@ -1,0 +1,34 @@
+# https://github.com/hyiso/commitlint/blob/main/lib/commitlint.yaml
+include: package:commitlint_cli/commitlint.yaml
+
+# https://github.com/hyiso/commitlint/pull/22
+parser:
+  issuePrefixes:
+    - "sv-"
+
+# https://hyiso.github.io/commitlint/#/references-rules
+rules:
+  type-enum:
+    - 2
+    - always
+    - - build
+      - chore
+      - docs
+      - feat
+      - fix
+      - refactor
+      - revert
+      - style
+      - test
+  scope-enum:
+    - 2
+    - always
+    - - domain
+      - infrastructures
+      - use_cases
+      - interfaces
+      - lib
+      - root
+  references-empty:
+    - 2
+    - never

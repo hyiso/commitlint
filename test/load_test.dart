@@ -40,4 +40,9 @@ void main() {
     expect(config.defaultIgnores, equals(null));
     expect(config.ignores, equals(["r'^fixup'"]));
   });
+  test('custom parser options should work', () async {
+    final config = await load('test/__fixtures__/parser-options.yaml');
+    expect(config.parser, isNotNull);
+    expect(config.parser!.issuePrefixes, equals(['sv-']));
+  });
 }

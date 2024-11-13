@@ -1,4 +1,5 @@
 import 'package:commitlint_cli/src/lint.dart';
+import 'package:commitlint_cli/src/load.dart';
 import 'package:commitlint_cli/src/types/rule.dart';
 import 'package:test/test.dart';
 
@@ -137,5 +138,15 @@ Signed-off-by: dependabot[bot] <support@github.com>
     });
     expect(result.valid, true);
     expect(result.input, equals(message));
+  });
+
+  test('should use custom parser options with custom issuePrefixes', () async {
+    final config = await load('test/__fixtures__/parser-options.yaml');
+    final result = await lint(
+      'fix(root): fix commitlint config sv-1',
+      config.rules,
+      parserOptions: config.parser,
+    );
+    expect(result.valid, true);
   });
 }

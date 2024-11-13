@@ -45,9 +45,14 @@ class CommitLintRunner extends CommandRunner {
     final messages =
         fromStdin ? await _stdin() : await read(from: from, to: to, edit: edit);
     final config = await load(topLevelResults['config']);
-    final results = (await Future.wait(messages.map((message) async =>
-        await lint(message, config.rules,
-            defaultIgnores: config.defaultIgnores, ignores: config.ignores))));
+    final results =
+        (await Future.wait(messages.map((message) async => await lint(
+              message,
+              config.rules,
+              parserOptions: config.parser,
+              defaultIgnores: config.defaultIgnores,
+              ignores: config.ignores,
+            ))));
     if (config.rules.isEmpty) {
       String input = '';
       if (results.isNotEmpty) {
